@@ -26,7 +26,7 @@ public class TimeTracker {
      * Initializes the Time Tracker to run for
      * {@code simulationMonths} months.
      */
-    public static void startSimulation(int simulationMonths){
+    protected static void startSimulation(int simulationMonths){
         monthsPassed = 0;
         startingDate = LocalDate.now();
 
@@ -53,7 +53,7 @@ public class TimeTracker {
     }
     /**
      * Checks if there is any upcoming day.
-     * @return true if there is at least one dayleft.
+     * @return true if there is at least one day left.
      */
     public static boolean hasNextDay(){
         return currentDate.plusDays(1).isBefore(endDate);

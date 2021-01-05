@@ -1,5 +1,16 @@
 package com.sparta.configuration;
 
+/**
+ * The class {@code Settings} is defining the configuration fields
+ * expected to be found in {@link SimulatorConfiguration}. Whenever
+ * a new configuration field is required, it has to be given a default
+ * value that will be applied in case
+ * {@link SimulatorConfiguration#loadCustomConfiguration()} fails.
+ *
+ * @since 1.0
+ * @author Samurah
+ */
+
 public enum Settings {
     SIMULATION_MONTHS ("simulation_months", 12),
     CENTER_OPENING_FREQUENCY("center_opening_frequency_in_months", 2),
