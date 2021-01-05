@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class TraineeController {
 
-    public void generateTrainees(LinkedList<Trainee> trainees, int numberOfTrainees) {
+    public static void generateTrainees(LinkedList<Trainee> trainees, int numberOfTrainees) {
         while (numberOfTrainees != 0) {
             trainees.add(new Trainee());
             numberOfTrainees--;

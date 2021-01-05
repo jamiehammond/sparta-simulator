@@ -28,7 +28,7 @@ public class Company {
         centres.add(centre);
     }
 
-    public void assignTrainees() {
+    public static void assignTrainees() {
         ArrayList<Centre> availableCenters = centersAvailable(centres);
         int traineeToBeAdded = 0;
         while (availableCenters.size() != 0 && waitingList.size() != 0) {
@@ -44,7 +44,7 @@ public class Company {
             }
         }
     }
-    private ArrayList<Centre> centersAvailable(ArrayList<Centre> centres) {
+    private static ArrayList<Centre> centersAvailable(ArrayList<Centre> centres) {
         ArrayList<Centre> centresAvailable = new ArrayList<>();
         for (Centre centre : centres) {
             if (!centre.isFull()) {
@@ -53,10 +53,10 @@ public class Company {
         }
         return centresAvailable;
     }
-    private void addTraineeToCentre(Trainee trainee, Centre currentCentre) {
+    private static void addTraineeToCentre(Trainee trainee, Centre currentCentre) {
         currentCentre.addTrainee(trainee);
     }
-    private void removeTraineeFromWaitingList(Trainee trainee) {
+    private static void removeTraineeFromWaitingList(Trainee trainee) {
         waitingList.remove(trainee);
     }
 }
