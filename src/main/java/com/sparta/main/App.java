@@ -1,5 +1,7 @@
 package com.sparta.main;
 
+import com.sparta.configuration.Settings;
+
 public class App 
 {
     public static void main( String[] args )
@@ -20,5 +22,6 @@ public class App
             Delayer.delay(Settings.MONTH_DELAY_IN_SECONDS.getValue());
         }
         Printer.printProgress();
+        Settings.CENTER_ADMITTANCE_FREQUENCY.getValue();
     }
 }
