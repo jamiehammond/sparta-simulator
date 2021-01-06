@@ -10,23 +10,26 @@ import com.sparta.utility.TimeTracker;
 
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) {
+
+        Company spartaGlobal = new Company();
 
         // TODO : User input code from inputManager here
+        Printer.greeting();
+        TimeTracker.startSimulation();
         while (TimeTracker.hasNextMonth()) {
-            //Printer.printProgress();
             if (TimeTracker.getMonth() % Settings.CENTER_OPENING_FREQUENCY.getValue() == 0) {
-                Company.openCentre();
+                spartaGlobal.openCentre();
             }
             if (TimeTracker.getMonth() % Settings.NEW_TRAINEE_FREQUENCY.getValue() == 0) {
                 int traineesToGenerate = Randomizer.generateRandomInt(Settings.NEW_TRAINEE_MIN.getValue(), Settings.NEW_TRAINEE_MAX.getValue());
-                TraineeController.generateTrainees(Company.getWaitingList(), traineesToGenerate);
+                TraineeController.generateTrainees(spartaGlobal.getWaitingList(), traineesToGenerate);
+                Printer.printProgress(spartaGlobal);
             }
-            Company.assignTrainees();
+            spartaGlobal.assignTrainees();
             Delayer.delay(Settings.MONTH_IN_MS.getValue());
+            TimeTracker.nextMonth();
         }
-        //Printer.printProgress();
-        Settings.CENTER_ADMITTANCE_FREQUENCY.getValue();
+        Printer.printProgress(spartaGlobal);
     }
 }

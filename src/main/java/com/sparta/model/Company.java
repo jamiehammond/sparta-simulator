@@ -7,44 +7,44 @@ import java.util.LinkedList;
 
 public class Company {
 
-    private static ArrayList<Centre> centres;
-    private static LinkedList<Trainee> waitingList;
+    private ArrayList<Centre> centres;
+    private LinkedList<Trainee> waitingList;
 
-    public Company(ArrayList<Centre> centres, LinkedList<Trainee> waitingList ) {
-        this.centres =centres;
-        this.waitingList = waitingList;
+    public Company() {
+        this.centres = new ArrayList<>();
+        this.waitingList = new LinkedList<>();
     }
 
-    public static ArrayList<Centre> getCentres() {
+    public ArrayList<Centre> getCentres() {
         return centres;
     }
 
-    public static LinkedList<Trainee> getWaitingList() {
+    public LinkedList<Trainee> getWaitingList() {
         return waitingList;
     }
 
-    public static void openCentre() {
+    public void openCentre() {
         Centre centre = new Centre();
         centres.add(centre);
     }
 
-    public static void assignTrainees() {
-        ArrayList<Centre> availableCenters = centersAvailable(centres);
-        int traineeToBeAdded = 0;
-        while (availableCenters.size() != 0 && waitingList.size() != 0) {
-            Trainee trainee = waitingList.get(traineeToBeAdded);
-            int temp = Randomizer.generateRandomInt(0, availableCenters.size());
-            Centre currentCentre = availableCenters.get(temp);
+    public void assignTrainees() {
+        ArrayList<Centre> availableCentres = centresAvailable(centres);
+        while (availableCentres.size() != 0 && waitingList.size() != 0) {
+            int firstTraineeToBeAdded = 0;
+            Trainee trainee = waitingList.get(firstTraineeToBeAdded);
+            int temp = Randomizer.generateRandomInt(0, availableCentres.size()-1);
+            Centre currentCentre = availableCentres.get(temp);
             if (!currentCentre.isFull()) {
                 addTraineeToCentre(trainee, currentCentre);
                 removeTraineeFromWaitingList(trainee);
-                traineeToBeAdded++;
             } else {
-                availableCenters.remove(currentCentre);
+                availableCentres.remove(currentCentre);
             }
         }
     }
-    private static ArrayList<Centre> centersAvailable(ArrayList<Centre> centres) {
+
+    private ArrayList<Centre> centresAvailable(ArrayList<Centre> centres) {
         ArrayList<Centre> centresAvailable = new ArrayList<>();
         for (Centre centre : centres) {
             if (!centre.isFull()) {
@@ -53,10 +53,11 @@ public class Company {
         }
         return centresAvailable;
     }
-    private static void addTraineeToCentre(Trainee trainee, Centre currentCentre) {
+
+    private void addTraineeToCentre(Trainee trainee, Centre currentCentre) {
         currentCentre.addTrainee(trainee);
     }
-    private static void removeTraineeFromWaitingList(Trainee trainee) {
+    private void removeTraineeFromWaitingList(Trainee trainee) {
         waitingList.remove(trainee);
     }
 }

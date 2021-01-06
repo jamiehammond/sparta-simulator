@@ -1,4 +1,5 @@
 package com.sparta.utility;
+import com.sparta.configuration.Settings;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Randomizer {

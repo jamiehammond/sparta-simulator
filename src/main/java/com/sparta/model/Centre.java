@@ -1,13 +1,12 @@
 package com.sparta.model;
 
-import com.sparta.utility.Settings;
-
+import com.sparta.configuration.Settings;
 import java.util.ArrayList;
 
 public class Centre {
     private int centreID;
-    private final int capacity= Settings.CENTRE_CAPACITY.getValue();
-    public static ArrayList<Trainee> trainees = new ArrayList();
+    private final int capacity= Settings.CENTER_CAPACITY.getValue();
+    public static ArrayList<Trainee> trainees = new ArrayList<>();
     public int traineeCount=0;
 
     public static ArrayList<Trainee> getTraineesList(){
