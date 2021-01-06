@@ -12,6 +12,20 @@ public class Printer {
         System.out.println("Welcome to the Sparta simulator");
     }
 
+    public static void defaultSettings(){
+        System.out.println("The default values are: \n" +
+                "Simulation time in months: " +Settings.SIMULATION_MONTHS.getValue() + "\n" +
+                "Centre opening frequency: " +Settings.CENTER_OPENING_FREQUENCY.getValue() + "\n" +
+                "Centre capacity: " +Settings.CENTER_CAPACITY.getValue() + "\n" +
+                "Lower bound for new trainee range: " +Settings.NEW_TRAINEE_MIN.getValue() + "\n" +
+                "Upper bound for new trainee range: " +Settings.CENTER_OPENING_FREQUENCY.getValue() + "\n" +
+                "New trainee frequency in months: " +Settings.NEW_TRAINEE_FREQUENCY.getValue() + "\n" +
+                "Lower bound for centre admittance: " +Settings.CENTER_ADMITTANCE_MIN.getValue() + "\n" +
+                "Upper bound for centre admittance: " +Settings.CENTER_ADMITTANCE_MAX.getValue() + "\n" +
+                "Centre admittance frequency: " +Settings.CENTER_ADMITTANCE_FREQUENCY.getValue() + "\n" +
+                "Seconds per month: " +Settings.MONTH_IN_MS.getValue());
+    }
+
     public static void simulationTime(){
         System.out.println("Enter simulation time in Months (Press enter to use default value: "+ Settings.SIMULATION_MONTHS.getValue());
     }
@@ -52,7 +66,7 @@ public class Printer {
     }
 
     public static void areValuesCorrectToRun(){
-        System.out.println("Are these values correct to run the simulation? (Y/N) ");
+        System.out.println("Are these values correct to run the simulation? (Y/N):");
     }
 
     public static void currentMonth(){
@@ -61,23 +75,26 @@ public class Printer {
 
     public static void printProgress(Company company) {
         currentMonth();
-        System.out.println("Number of Centres: " + company.getCentres().size());
-        System.out.println("Number of people in waiting list: " + company.getWaitingList().size());
+        openCentres(company);
+        fullCentres(company);
+        traineesInTraining(company);
+        traineesInWaitingList(company);
     }
 
-//    public static void openCentres(){
-//        System.out.println("Number of open centres: "+TimeTracker.getOpenCentres());
-//    }
+    public static void openCentres(Company company){
+        System.out.println("Number of open centres: "+company.getCentres().size());
+    }
 
-//    public static void fullCentres(){
-//        System.out.println("Number of full centres: "+TimeTracker.getFullCentres());
-//    }
+    public static void fullCentres(Company company){
+        System.out.println("Number of full centres: "+company.getFullCentres().size());
+    }
 
-//    public static void traineesInTraining(){
-//        System.out.println("Number of trainees in training: "+TimeTracker.getTraineesInTraining());
-//    }
+    public static void traineesInTraining(Company company){
+        System.out.println("Number of trainees in training: "+TimeTracker.getTraineesInTraining());
+    }
 
-//    public static void traineesInWaitingList(){
-//        System.out.println("Number of trainees in waiting list: "+TimeTracker.getTraineesInWaitingList());
-//    }
+    public static void traineesInWaitingList(Company company){
+        System.out.println("Number of trainees in waiting list: "+company.getWaitingList().size());
+    }
+
 }
