@@ -3,6 +3,7 @@ package com.sparta.model;
 import com.sparta.utility.Randomizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Company {
@@ -30,11 +31,14 @@ public class Company {
 
     public void assignTrainees() {
         ArrayList<Centre> availableCentres = centresAvailable(centres);
+        int[] monthlyAllowance = Randomizer.getCentreAllowanceArray(availableCentres.size());
+        System.err.println(Arrays.toString(monthlyAllowance));
         while (availableCentres.size() != 0 && waitingList.size() != 0) {
             int temp = Randomizer.generateRandomInt(0, availableCentres.size()-1);
             Centre currentCentre = availableCentres.get(temp);
-            if (!currentCentre.isFull()) {
+            if (!currentCentre.isFull() && monthlyAllowance[temp] > 0) {
                 addTraineeToCentre(waitingList.peek(), currentCentre);
+                monthlyAllowance[temp]--;
                 waitingList.poll();
             } else {
                 availableCentres.remove(currentCentre);

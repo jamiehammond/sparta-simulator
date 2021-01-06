@@ -1,5 +1,7 @@
 package com.sparta.utility;
+
 import com.sparta.configuration.Settings;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Randomizer {
@@ -14,4 +16,17 @@ public class Randomizer {
     }
 }
 
-//     random course allocation method
+    private static int[] getArrayInRange(int size, int lower, int higher) {
+        int[] array = new int[size];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = Randomizer.generateRandomInt(lower, higher);
+        }
+        return array;
+    }
+
+    public static int[] getCentreAllowanceArray(int size) {
+        return getArrayInRange(size, Settings.CENTER_ADMITTANCE_MIN.getValue(), Settings.CENTER_ADMITTANCE_MAX.getValue());
+    }
+
+
+}
