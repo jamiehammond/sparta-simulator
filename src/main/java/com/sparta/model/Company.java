@@ -60,4 +60,12 @@ public class Company {
         return centresAvailable(centres).size() - centres.size();
     }
 
+    public int getNumberOfTraineesInTraining() {
+        int count = 0;
+        for (Centre centre : centres) {
+            count += centre.getNumberOfTrainees();
+        }
+        return count;
+    }
+
 }
