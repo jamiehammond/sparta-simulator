@@ -11,10 +11,9 @@ public class Randomizer {
     }
 
     //to be renamed "static int getNewTrainees()"
-    public static int getRandomNewTraineeNumber(){
+    public static int getNewTrainees(){
         return generateRandomInt(Settings.NEW_TRAINEE_MIN.getValue(), Settings.NEW_TRAINEE_MAX.getValue());
     }
-}
 
     private static int[] getArrayInRange(int size, int lower, int higher) {
         int[] array = new int[size];

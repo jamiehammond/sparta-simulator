@@ -21,6 +21,7 @@ import java.util.Properties;
  */
 
 class SimulatorConfiguration {
+
 /**
  * Persists loaded configuration
  */
