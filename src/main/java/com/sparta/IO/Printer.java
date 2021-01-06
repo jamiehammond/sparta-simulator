@@ -82,15 +82,15 @@ public class Printer {
     }
 
     public static void openCentres(Company company){
-        System.out.println("Number of open centres: "+company.getCentres().size());
+        System.out.println("Number of open centres: "+company.getNumberOfOpenCentres());
     }
 
     public static void fullCentres(Company company){
-        System.out.println("Number of full centres: "+company.getFullCentres().size());
+        System.out.println("Number of full centres: "+company.getNumberOfFullCentres());
     }
 
     public static void traineesInTraining(Company company){
-        System.out.println("Number of trainees in training: "+TimeTracker.getTraineesInTraining());
+        System.out.println("Number of trainees in training: "+company.getNumberOfTraineesInTraining());
     }
 
     public static void traineesInWaitingList(Company company){

@@ -121,7 +121,7 @@ public void setUp(){
         company.openCentre();
         company.openCentre();
         Printer.openCentres(company);
-        Assertions.assertEquals("Number of open centres: "+ company.getCentres().size(), outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Number of open centres: "+ company.getNumberOfOpenCentres(), outputStreamCaptor.toString().trim());
     }
 
     @Test
@@ -131,7 +131,7 @@ public void setUp(){
         TraineeController.generateTrainees(company.getWaitingList(), 150);
         company.assignTrainees();
         Printer.fullCentres(company);
-        Assertions.assertEquals("Number of full centres: "+ Company.getFullCentres().size(), outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Number of full centres: "+ Company.getNumberOfFullCentres(), outputStreamCaptor.toString().trim());
     }
     @Test
     void DoesTraineesInTrainingMatchExpected(){
@@ -141,7 +141,7 @@ public void setUp(){
         TraineeController.generateTrainees(company.getWaitingList(), 150);
         company.assignTrainees();
         Printer.traineesInTraining(company);
-        Assertions.assertEquals("Number of trainees in training: "+ Company.getTraineesInTraining().size, outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Number of trainees in training: "+ Company.getNumberOfTraineesInTraining(), outputStreamCaptor.toString().trim());
     }
 
     @Test
