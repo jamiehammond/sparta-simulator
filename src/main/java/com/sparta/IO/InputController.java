@@ -4,25 +4,32 @@ import java.util.Scanner;
 
 public class InputController {
 
-    public static boolean yesOrNo(String decision){
+    public static String userInput(){
+        return new Scanner(System.in).next();
+    }
 
-        while (true){
-            if (decision.equalsIgnoreCase("Y")){
-                return true;
-            } if (decision.equalsIgnoreCase("N")){
-                return false;
-            } else {
-                System.out.println("Please enter Y or N");
-                continue;
-            }
+    public static boolean isUserAnsweringPositive(){
+        String answer = userInput();
+        if(answer.matches("^(?i)[yn]$")){
+            return answer.matches("^(?i)[y]$");
+        } else {
+            System.out.println("Please enter Y or N");
+           return isUserAnsweringPositive();
         }
     }
 
-    public static String yesOrNoScan(){
-        Scanner scanner = new Scanner(System.in);
-        String decision = scanner.next();
-        return decision;
+    public static int userInputInRange(int upper, int lower){
+        System.out.println("Please enter a value between " + lower + " and " + upper);
+        String answer = userInput();
+       if (answer.matches("^[-]?\\d*$")){
+           int integer = Integer.parseInt(answer);
+           if (integer >= lower && integer <= upper){
+               return integer;
+           }
+       }
+       return userInputInRange(upper,lower);
     }
+
 
 
 }
