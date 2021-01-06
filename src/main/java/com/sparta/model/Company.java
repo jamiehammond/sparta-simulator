@@ -56,6 +56,8 @@ public class Company {
         currentCentre.addTrainee(trainee);
     }
 
-//    public ArrayList<Centre>
+    public int getFullCentres() {
+        return centresAvailable(centres).size() - centres.size();
+    }
 
 }
