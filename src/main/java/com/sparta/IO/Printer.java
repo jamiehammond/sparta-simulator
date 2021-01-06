@@ -70,12 +70,12 @@ public class Printer {
         System.out.println("Are these values correct to run the simulation? (Y/N):");
     }
 
-    public static void currentMonth(){
-        System.out.println("Current Month: "+TimeTracker.toString(TimeTracker.getCurrentDate()) + " (" + (TimeTracker.getMonthsPassed() + 1) + ")");
+    public static void currentDate(){
+        System.out.println("Current date: "+TimeTracker.toString(TimeTracker.getCurrentDate()) + " (" + TimeTracker.getMonthsPassed() + ")");
     }
 
     public static void printProgress(Company company) {
-        currentMonth();
+        currentDate();
         openCentres(company);
         fullCentres(company);
         traineesInTraining(company);

@@ -49,15 +49,17 @@ public class TimeTracker {
      * @return true if there is at least one month left.
      */
     public static boolean hasNextMonth(){
-        return currentDate.plusMonths(1).isBefore(endDate);
+        return currentDate.plusMonths(1).isBefore(endDate) || currentDate.plusMonths(1).isEqual(endDate);
     }
+
     /**
      * Checks if there is any upcoming day.
      * @return true if there is at least one day left.
      */
     public static boolean hasNextDay(){
-        return currentDate.plusDays(1).isBefore(endDate);
+        return currentDate.plusDays(1).isBefore(endDate) || currentDate.plusDays(1).isEqual(endDate);
     }
+
     /**
      * Increments the simulation time with one month.
      */
@@ -67,6 +69,7 @@ public class TimeTracker {
             monthsPassed++;
         }
     }
+
     /**
      * Gets the current counter of months passed.
      * @return how many months have passed since the start of the simulation.
@@ -74,6 +77,7 @@ public class TimeTracker {
     public static int getMonthsPassed(){
         return monthsPassed;
     }
+
     /**
      * Gets the current month as a value.
      * <li>January - 1</li>
@@ -85,11 +89,11 @@ public class TimeTracker {
     public static int getMonth(){
         return currentDate.getMonthValue();
     }
+
     /**
      * Gets the current year of the simulation.
      * @return an integer representing the current year.
      */
-
     public static int getYear(){
         return currentDate.getYear();
     }

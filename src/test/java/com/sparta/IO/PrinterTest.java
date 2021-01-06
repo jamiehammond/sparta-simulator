@@ -106,7 +106,7 @@ public void setUp(){
 
     @Test
     void DoesCurrentMonthMatchExpected(){
-        Printer.currentMonth();
+        Printer.currentDate();
         Assertions.assertEquals("Current Month: " + TimeTracker.getMonth(), outputStreamCaptor.toString().trim());
 
     }
