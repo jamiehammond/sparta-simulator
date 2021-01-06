@@ -32,4 +32,5 @@ public class App
         }
         Printer.printProgress(spartaGlobal);
     }
+
 }
