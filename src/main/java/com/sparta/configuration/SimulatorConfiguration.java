@@ -14,6 +14,7 @@ import java.util.Properties;
  * The class {@code SimulatorConfiguration} is checking the integrity
  * of the configuration file found at {@code src/main/resources/settings.properties}.
  * Also, it offers a backup configuration which will be statically loaded.
+ * It will persist the configuration during Runtime.
  *
  * @author Samurah
  * @since 1.0
@@ -30,7 +31,9 @@ class SimulatorConfiguration {
         loadCustomConfiguration();
     }
 
-
+    /**
+     * Loads the settings.properties file and calls {@link #loadConfiguration(Properties)}
+     */
     protected static void loadCustomConfiguration(){
         Properties properties = new Properties();
         try {
@@ -42,6 +45,11 @@ class SimulatorConfiguration {
         }
     }
 
+    /**
+     * Tries loading custom configuration through {@link Properties}
+     * if {@link Properties} doesn't contain all {@link Settings} fields
+     * or it contains invalid input it will call {@link #loadBackupConfiguration()}
+     */
     protected static void loadConfiguration(Properties properties) {
         configuration.clear();
         try{
@@ -59,6 +67,14 @@ class SimulatorConfiguration {
         }
     }
 
+    /**
+     * This method will try to load the custom configuration file.
+     * @param properties contains custom configuration.
+     * @throws MissingFieldException if {@code Properties} is missing
+     * fields as described in {@link Settings}
+     * @throws NumberFormatException if {@link Properties#getProperty(String)}
+     * cannot be parsed as {@code Integer}.
+     */
     protected static void tryLoadConfiguration(Properties properties) throws MissingFieldException, NumberFormatException{
             ArrayList<Settings> missingFields = new ArrayList<>();
             for (Settings settings : Settings.values()) {
@@ -74,10 +90,19 @@ class SimulatorConfiguration {
             }
     }
 
+    /**
+     * This method is called to get the required Setting,
+     * after loading the configuration in the {@code configuration} {@link HashMap}.
+     * @param settings is the configuration field
+     * @return the current value of {@code settings}
+     */
     protected static int getConfiguration(Settings settings){
         return configuration.get(settings);
     }
 
+    /**
+     * Loads the default values of configuration fields as described in {@link Settings}
+     */
     private static void loadBackupConfiguration(){
         //TODO("Method not yet existent"); - ASK FOR INPUT ("Do you wanna load backup configuration?");
         Delayer.delay(1000);

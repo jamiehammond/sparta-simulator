@@ -35,17 +35,30 @@ class TimeTrackerTest {
 
     @Test
     void getCurrentDate() {
+        TimeTracker.startSimulation(2);
+        Assertions.assertEquals(LocalDate.now(), TimeTracker.getCurrentDate());
+        TimeTracker.nextMonth();
+        Assertions.assertEquals(LocalDate.now().plusMonths(1).toString(), TimeTracker.getCurrentDate().toString());
     }
 
     @Test
     void getStartingDate() {
+        TimeTracker.startSimulation(2);
+        Assertions.assertEquals(LocalDate.now().toString(),TimeTracker.getCurrentDate().toString());
     }
 
     @Test
     void getEndDate() {
+        TimeTracker.startSimulation(2);
+        Assertions.assertEquals(LocalDate.now().plusMonths(2).toString(),TimeTracker.getEndDate().toString());
     }
 
     @Test
     void testToString() {
+        TimeTracker.startSimulation(2);
+        LocalDate localDate = LocalDate.of(2020, 1,1);
+        String expected = "January, 2020";
+        String actual = TimeTracker.toString(localDate);
+        Assertions.assertEquals(expected,actual);
     }
 }
