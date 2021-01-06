@@ -4,40 +4,43 @@ import com.sparta.configuration.Settings;
 import java.util.ArrayList;
 
 public class Centre {
-    private int centreID;
-    private final int capacity= Settings.CENTER_CAPACITY.getValue();
-    public static ArrayList<Trainee> trainees = new ArrayList<>();
-    public int traineeCount=0;
+    private int centreId;
+    private final int capacity;
+    private ArrayList<Trainee> trainees;
+    private static int centreCount;
 
-    public static ArrayList<Trainee> getTraineesList(){
+    static {
+        centreCount=0;
+    }
+
+    public Centre () {
+        this.capacity = Settings.CENTER_CAPACITY.getValue();
+        trainees  = new ArrayList<>();
+        this.centreId=centreCount;
+        centreCount++;
+    }
+
+    public ArrayList<Trainee> getTraineesList(){
         return trainees;
     }
 
-    public int getNumberOfTrainees() {
-        int traineeInProgress=0;
-        for (Trainee trainee : trainees) {
-            traineeInProgress=trainee.getCount();
-        }
-        traineeCount=traineeInProgress;
-        return traineeInProgress;
+    public int countTraineesInTraining(){
+        return trainees.size();
     }
 
     public boolean isFull() {
-        if (getCapacityCount()>0) {
-            return false;
-        }
-        return true;
+        return !(getRemainingCapacity()>0);
     }
 
-    private int getCapacityCount () {
-        int currentCapacity=0;
-        currentCapacity = capacity - traineeCount;
-        return currentCapacity;
+    private int getRemainingCapacity() {
+        return capacity - trainees.size();
     }
 
     public void addTrainee(Trainee trainee)  {
         trainees.add(trainee);
     }
 
-
+    public int getCentreId() {
+        return centreId;
+    }
 }

@@ -31,13 +31,11 @@ public class Company {
     public void assignTrainees() {
         ArrayList<Centre> availableCentres = centresAvailable(centres);
         while (availableCentres.size() != 0 && waitingList.size() != 0) {
-            int firstTraineeToBeAdded = 0;
-            Trainee trainee = waitingList.get(firstTraineeToBeAdded);
             int temp = Randomizer.generateRandomInt(0, availableCentres.size()-1);
             Centre currentCentre = availableCentres.get(temp);
             if (!currentCentre.isFull()) {
-                addTraineeToCentre(trainee, currentCentre);
-                removeTraineeFromWaitingList(trainee);
+                addTraineeToCentre(waitingList.peek(), currentCentre);
+                waitingList.poll();
             } else {
                 availableCentres.remove(currentCentre);
             }
@@ -57,7 +55,21 @@ public class Company {
     private void addTraineeToCentre(Trainee trainee, Centre currentCentre) {
         currentCentre.addTrainee(trainee);
     }
-    private void removeTraineeFromWaitingList(Trainee trainee) {
-        waitingList.remove(trainee);
+
+    public int getNumberOfFullCentres() {
+        return centresAvailable(centres).size() - centres.size();
     }
+
+    public int getNumberOfOpenCentres() {
+        return centresAvailable(centres).size();
+    }
+
+    public int getNumberOfTraineesInTraining() {
+        int count = 0;
+        for (Centre centre : centres) {
+            count += centre.getNumberOfTrainees();
+        }
+        return count;
+    }
+
 }
