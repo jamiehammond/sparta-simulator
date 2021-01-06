@@ -12,7 +12,7 @@ public class Printer {
         System.out.println("Welcome to the Sparta simulator");
     }
 
-    public static void defaultSettings(){
+    public static void configuration(){
         System.out.println("The default values are: \n" +
                 "Simulation time in months: " +Settings.SIMULATION_MONTHS.getValue() + "\n" +
                 "Centre opening frequency: " +Settings.CENTER_OPENING_FREQUENCY.getValue() + "\n" +
