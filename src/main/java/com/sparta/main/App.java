@@ -17,6 +17,7 @@ public class App
         // TODO : User input code from inputManager here
         Printer.greeting();
         TimeTracker.startSimulation();
+        Printer.printProgress(spartaGlobal);
         while (TimeTracker.hasNextMonth()) {
             if (TimeTracker.getMonthsPassed() % Settings.CENTER_OPENING_FREQUENCY.getValue() == 0) {
                 spartaGlobal.openCentre();
@@ -26,11 +27,11 @@ public class App
                 TraineeController.generateTrainees(spartaGlobal.getWaitingList(), traineesToGenerate);
             }
             spartaGlobal.assignTrainees();
+            TimeTracker.nextMonth();
             Printer.printProgress(spartaGlobal);
             Delayer.delay(Settings.MONTH_IN_MS.getValue());
-            TimeTracker.nextMonth();
         }
-        Printer.printProgress(spartaGlobal);
+//        Printer.printProgress(spartaGlobal);
     }
 
 }

@@ -59,6 +59,7 @@ class SimulatorConfigurationTest {
         }
         Assertions.assertTrue(allMatching);
     }
+
     @Test
     void ifCustomMissingFieldsSettingsFailLoadBackup() throws Exception{
         Properties goodProperties = loadingProperties(new FileReader("src/test/resources/settingsMissingFields.properties"));

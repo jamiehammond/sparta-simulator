@@ -55,7 +55,7 @@ class SimulatorConfiguration {
         try{
             System.out.println(TextColor.ANSI_YELLOW + "Loading configuration." + TextColor.ANSI_YELLOW);
             tryLoadConfiguration(properties);
-            System.out.println(TextColor.ANSI_GREEN + "Configuration loaded." + TextColor.ANSI_GREEN);
+            System.out.println(TextColor.ANSI_GREEN + "Configuration loaded." + TextColor.ANSI_RESET);
         }catch (NumberFormatException e){
             System.err.println("Custom configuration couldn't get loaded!");
             System.err.println("Please make sure all fields are integer values.");
@@ -111,7 +111,7 @@ class SimulatorConfiguration {
         for (Settings settings : Settings.values()) {
             configuration.put(settings, settings.getDefaultValue());
         }
-        System.out.println(TextColor.ANSI_GREEN + "Default configuration loaded." + TextColor.ANSI_GREEN);
+        System.out.println(TextColor.ANSI_GREEN + "Default configuration loaded." + TextColor.ANSI_RESET);
     }
 
 }
