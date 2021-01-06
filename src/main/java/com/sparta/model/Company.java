@@ -56,8 +56,20 @@ public class Company {
         currentCentre.addTrainee(trainee);
     }
 
-    public int getFullCentres() {
+    public int getNumberOfFullCentres() {
         return centresAvailable(centres).size() - centres.size();
+    }
+
+    public int getNumberOfOpenCentres() {
+        return centresAvailable(centres).size();
+    }
+
+    public int getNumberOfTraineesInTraining() {
+        int count = 0;
+        for (Centre centre : centres) {
+            count += centre.getNumberOfTrainees();
+        }
+        return count;
     }
 
 }
