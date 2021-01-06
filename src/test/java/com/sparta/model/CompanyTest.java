@@ -1,7 +1,8 @@
 package com.sparta.model;
 
 import org.junit.jupiter.api.Assertions;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+//import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
@@ -10,65 +11,63 @@ import java.util.LinkedList;
 
 
 class CompanyTest {
-    ArrayList<Centre> centres = new ArrayList<>();
-    LinkedList<Trainee> waitingList = new LinkedList<>();
-    Company company = new Company(centres, waitingList);
+
+    Company company;
+
+    @BeforeEach
+    void setup() {
+        company = new Company();
+    }
 
     @Test
     void openCentresTest() {
-        Company.openCentre();
-        assertEquals(1, centres.size());
+        company.openCentre();
+        Assertions.assertEquals(1, company.getCentres().size());
     }
 
     @Test
     void getCentresTest() {
-        centres.add(new Centre());
-        centres.add(new Centre());
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
-        assertEquals(2, Company.getCentres().size());
+        company.getCentres().add(new Centre());
+        Assertions.assertEquals(1, company.getCentres().size());
     }
+
 
     @Test
     void getWaitingListTest() {
-        centres.add(new Centre());
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
-        assertEquals(3, Company.getWaitingList().size());
+        company.getCentres().add(new Centre());
+        company.getWaitingList().add(new Trainee());
+        company.getWaitingList().add(new Trainee());
+        company.getWaitingList().add(new Trainee());
+        Assertions.assertEquals(3, company.getWaitingList().size());
     }
 
 
     @Test
     void doesAssignTraineesAddTraineesFromWaitingList() {
-        ArrayList<Centre> centres = new ArrayList<>();
-        LinkedList<Trainee> waitingList = new LinkedList<>();
-        Company company = new Company(centres, waitingList);
-        centres.add(new Centre());
-        centres.add(new Centre());
-        centres.add(new Centre());
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
+        company.getCentres().add(new Centre());
+        company.getCentres().add(new Centre());
+        company.getCentres().add(new Centre());
+        company.getWaitingList().add(new Trainee());
+        company.getWaitingList().add(new Trainee());
+        company.getWaitingList().add(new Trainee());
         company.assignTrainees();
-        Assertions.assertEquals(0, waitingList.size());
+        Assertions.assertEquals(0, company.getWaitingList().size());
     }
 
     @Test
     void doesAssignTraineesStopAddingTraineesWhenCentresAreFull() {
-        centres = new ArrayList<>();
-        waitingList = new LinkedList<>();
         Centre centre = new Centre();
+
+        int count = 0;
         while (!centre.isFull()) {
-            centre.addTrainee();
+            centre.addTrainee(new Trainee());
+            count++; // for debugging
         }
-        centres.add(centre);
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
-        waitingList.add(new Trainee());
-        company = new Company(centres, waitingList);
+        company.getCentres().add(centre);
+        company.getWaitingList().add(new Trainee());
+        company.getWaitingList().add(new Trainee());
+        company.getWaitingList().add(new Trainee());
         company.assignTrainees();
-        Assertions.assertEquals(3, waitingList.size());
+        Assertions.assertEquals(3, company.getWaitingList().size());
     }
 }

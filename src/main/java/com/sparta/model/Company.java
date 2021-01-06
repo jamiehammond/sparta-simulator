@@ -67,7 +67,7 @@ public class Company {
     public int getNumberOfTraineesInTraining() {
         int count = 0;
         for (Centre centre : centres) {
-            count += centre.getNumberOfTrainees();
+            count += centre.getTraineesList().size();
         }
         return count;
     }
