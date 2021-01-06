@@ -70,7 +70,5 @@ class CompanyTest {
         company = new Company(centres, waitingList);
         company.assignTrainees();
         Assertions.assertEquals(3, waitingList.size());
-
-
     }
 }
