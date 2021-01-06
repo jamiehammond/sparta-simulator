@@ -10,9 +10,15 @@ class TraineeTest {
 
     private Trainee trainee = new Trainee();
     private Trainee trainee1 = new Trainee();
+    private Trainee trainee2 = new Trainee();
 
     @Test
     void checkIfIDsAreUnique() {
         Assertions.assertNotEquals(trainee.getTraineeID(), trainee1.getTraineeID());
+    }
+
+    @Test
+    void checkIfCountIsCorrect() {
+        Assertions.assertEquals(3, trainee.getCount());
     }
 }
