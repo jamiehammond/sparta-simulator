@@ -127,7 +127,7 @@ public void setUp(){
         TraineeController.generateTrainees(company.getWaitingList(), 150);
         company.assignTrainees();
         Printer.fullCentres(company);
-        Assertions.assertEquals("Number of full centres: "+ Company.getFullCentres().size(), outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Number of full centres: "+ company.getNumberOfFullCentres(), outputStreamCaptor.toString().trim());
     }
     @Test
     void DoesTraineesInTrainingMatchExpected(){
@@ -137,14 +137,13 @@ public void setUp(){
         TraineeController.generateTrainees(company.getWaitingList(), 150);
         company.assignTrainees();
         Printer.traineesInTraining(company);
-        Assertions.assertEquals("Number of trainees in training: "+ Company.getTraineesInTraining().size, outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Number of trainees in training: "+ company.getNumberOfTraineesInTraining(), outputStreamCaptor.toString().trim());
     }
 
     @Test
     void DoesTraineesInWaitingListMatchExpected(){
         Company company = new Company();
-        TraineeController traineeController= new TraineeController();
-        traineeController.generateTrainees(company.getWaitingList(), 2);
+        TraineeController.generateTrainees(company.getWaitingList(), 2);
         Printer.traineesInWaitingList(company);
         Assertions.assertEquals("Number of trainees in waiting list: " + company.getWaitingList().size(), outputStreamCaptor.toString().trim());
     }

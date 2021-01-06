@@ -57,7 +57,7 @@ public class Company {
     }
 
     public int getNumberOfFullCentres() {
-        return centresAvailable(centres).size() - centres.size();
+        return centres.size() - centresAvailable(centres).size();
     }
 
     public int getNumberOfOpenCentres() {

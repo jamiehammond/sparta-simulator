@@ -4,6 +4,7 @@ import com.sparta.configuration.Settings;
 import com.sparta.model.Company;
 import com.sparta.utility.TimeTracker;
 
+import java.sql.Time;
 import java.util.Scanner;
 
 public class Printer {
@@ -70,7 +71,7 @@ public class Printer {
     }
 
     public static void currentMonth(){
-        System.out.println("Current Month: "+TimeTracker.getMonth());
+        System.out.println("Current Month: "+TimeTracker.toString(TimeTracker.getCurrentDate()) + " (" + (TimeTracker.getMonthsPassed() + 1) + ")");
     }
 
     public static void printProgress(Company company) {
@@ -79,6 +80,7 @@ public class Printer {
         fullCentres(company);
         traineesInTraining(company);
         traineesInWaitingList(company);
+        System.out.println();
     }
 
     public static void openCentres(Company company){
