@@ -3,9 +3,7 @@ package com.sparta.IO;
 import com.sparta.configuration.Settings;
 import com.sparta.controller.TraineeController;
 import com.sparta.model.Company;
-import com.sparta.model.Trainee;
 import com.sparta.utility.TimeTracker;
-import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,8 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PrinterTest {
     private final PrintStream standardOut = System.out;
@@ -33,7 +29,7 @@ public void setUp(){
 
     @Test
     void doesDefaultSettingsMatchExpected(){
-        Printer.defaultSettings();
+        Printer.configuration();
         Assertions.assertEquals("The default values are: \n" +
                 "Simulation time in months: " +Settings.SIMULATION_MONTHS.getValue() + "\n" +
                 "Centre opening frequency: " +Settings.CENTER_OPENING_FREQUENCY.getValue() + "\n" +
