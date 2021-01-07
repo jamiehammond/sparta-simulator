@@ -14,9 +14,4 @@ class InputControllerTest {
 //    void DoesNReturnFalse(){
 //        Assertions.assertFalse(InputController.yesOrNo("N"));
 //    }
-
-
-
-
-
 }
