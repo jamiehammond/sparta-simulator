@@ -20,9 +20,11 @@ public class Client {
         clientRequirements = new LinkedList<>();
         clientRequirements.add(new ClientRequirements());
     }
+  
     public void addHiredTrainee(Trainee trainee)  {
         hiredTrainees.add(trainee);
     }
+  
     private void checkClientHappiness() {
         for (ClientRequirements currentReq : clientRequirements) {
             if (currentReq.isCompleted == false) {

@@ -9,7 +9,7 @@ public class Trainee {
 
     public Trainee() {
         this.traineeID = count;
-        this.courseType = getRandomCourseType();
+        this.courseType = Randomizer.getRandomCourseType();
         count++;
     }
     public int getTraineeID() {
@@ -22,9 +22,5 @@ public class Trainee {
 
     public CourseType getCourseType() {
         return courseType;
-    }
-
-    private CourseType getRandomCourseType() {
-        return CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
     }
 }
