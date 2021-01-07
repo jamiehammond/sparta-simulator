@@ -1,8 +1,6 @@
 package com.sparta.controller;
 
-import com.sparta.model.Bootcamp;
-import com.sparta.model.Centre;
-import com.sparta.model.CentreType;
+import com.sparta.model.*;
 import com.sparta.utility.Randomizer;
 
 public class CentreFactory {
