@@ -86,7 +86,6 @@ public class Printer {
     public static void openCentres(Company company){
         System.out.println("Number of open centres: "+company.getNumberOfOpenCentres());
     }
-
     public static void fullCentres(Company company){
         System.out.println("Number of full centres: "+company.getNumberOfFullCentres());
     }
