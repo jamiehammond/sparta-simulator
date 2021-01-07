@@ -1,8 +1,8 @@
 package com.sparta.utility;
 
 import com.sparta.configuration.Settings;
+import com.sparta.model.CentreType;
 import com.sparta.model.CourseType;
-
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Randomizer {
@@ -30,5 +30,9 @@ public class Randomizer {
 
     public static CourseType getRandomCourseType() {
         return CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
+    }
+
+    public static CentreType getRandomCentreType() {
+        return CentreType.values()[Randomizer.generateRandomInt(0, CentreType.values().length - 1)];
     }
 }
