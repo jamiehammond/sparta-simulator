@@ -4,6 +4,7 @@ import com.sparta.configuration.Settings;
 import com.sparta.utility.TimeTracker;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Client {
 
@@ -25,7 +26,7 @@ public class Client {
         for (ClientRequirements currentReq : clientRequirements) {
             if (currentReq.isCompleted == false) {
                 LocalDate startDate = currentReq.getStartDate();
-                LocalDate endDate = startDate.addYears(Settings.REQUIREMENT_EXPIRY_TIME.getValue());
+                LocalDate endDate = startDate.plusYears(Settings.REQUIREMENT_EXPIRY_TIME.getValue());
                 if (TimeTracker.getCurrentDate().isAfter(endDate)) {
                     if (currentReq.getHiredTrainees.size() < currentReq.getTraineesToHire()) {
                         isClientHappy = false;
