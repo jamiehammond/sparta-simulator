@@ -1,5 +1,6 @@
 package com.sparta.model;
 
+import com.sparta.configuration.Settings;
 import com.sparta.utility.Randomizer;
 
 import java.util.ArrayList;
