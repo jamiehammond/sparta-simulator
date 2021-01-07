@@ -2,6 +2,7 @@ package com.sparta.model;
 
 import com.sparta.configuration.Settings;
 import com.sparta.utility.Randomizer;
+import com.sparta.utility.TimeTracker;
 
 import java.time.LocalDate;
 
@@ -12,11 +13,11 @@ public class ClientRequirements {
     private int traineesToHire;
     private boolean completed;
 
-    public ClientRequirements(LocalDate startDate, CourseType courseType, int traineesToHire, boolean completed) {
-        this.startDate = startDate;
-        this.courseType = courseType;
-        this.traineesToHire = traineesToHire;
-        this.completed = completed;
+    public ClientRequirements() {
+        this.startDate = TimeTracker.getCurrentDate();
+        this.courseType = CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
+        this.traineesToHire = Randomizer.generateRandomInt(Settings.CLIENT_HIRE_MIN.getValue(), Settings.CLIENT_HIRE_MAX.getValue());
+        this.completed = false;
     }
 
     public LocalDate getStartDate() {
