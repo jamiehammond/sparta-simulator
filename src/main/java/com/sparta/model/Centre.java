@@ -3,21 +3,27 @@ package com.sparta.model;
 import com.sparta.configuration.Settings;
 import java.util.ArrayList;
 
-public class Centre {
+public abstract class Centre {
     private int centreId;
     private final int capacity;
     private ArrayList<Trainee> trainees;
     private static int centreCount;
+    private CourseType courseType;
+    private int gracePeriod;
+    private LocalDate graceStartingDate;
 
     static {
         centreCount=0;
     }
 
-    public Centre () {
-        this.capacity = Settings.CENTER_CAPACITY.getValue();
+    public Centre (int capacity, int gracePeriod) {
+        this.capacity = capacity;
         trainees  = new ArrayList<>();
+        this.gracePeriod = gracePeriod;
         this.centreId=centreCount;
         centreCount++;
+        this.courseType = null;
+        this.graceStartingDate = null;
     }
 
     public ArrayList<Trainee> getTraineesList(){
@@ -43,4 +49,6 @@ public class Centre {
     public int getCentreId() {
         return centreId;
     }
+
+    public boolean isOverGracePeriod(){}
 }

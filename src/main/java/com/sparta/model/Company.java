@@ -8,6 +8,7 @@ import java.util.LinkedList;
 public class Company {
 
     private ArrayList<Centre> centres;
+    private ArrayList<Centre> closedCentres;
     private LinkedList<Trainee> waitingList;
 
     public Company() {
@@ -72,4 +73,10 @@ public class Company {
         return count;
     }
 
+    public void checkCentresForClosing(){}
+    public ArrayList<Centre> getCentresByCentreType(CentreType){}
+    public ArrayList<Centre> getOpenCentresByCentreType(CentreType){}
+    public ArrayList<Centre> getClosedCentresByCentreType(CentreType){}
+    public ArrayList<Centre> getFullCentresByCentreType(CentreType){}
+    public ArrayList<Trainee> getTraineesByCourseType(CourseType){}
 }
