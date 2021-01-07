@@ -24,6 +24,6 @@ class TraineeTest {
 
     @Test
     void checkIfTraineeHasCourseType() {
-        Assertions.assertTrue(trainee.getCourseType() != null);
+        assertNotNull(trainee.getCourseType());
     }
 }
