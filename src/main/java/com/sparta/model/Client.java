@@ -2,16 +2,8 @@ package com.sparta.model;
 
 import com.sparta.configuration.Settings;
 import com.sparta.utility.TimeTracker;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.LinkedList;
-
 
 public class Client {
 
@@ -26,7 +18,6 @@ public class Client {
         count++;
         clientRequirements = ClientRequirements.clientRequirements();
     }
-
     public void addHiredTrainee(Trainee trainee)  {
         hiredTrainees.add(trainee);
     }
