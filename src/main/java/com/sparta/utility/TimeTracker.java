@@ -19,14 +19,15 @@ public class TimeTracker {
     private static LocalDate currentDate;
     private static LocalDate endDate;
 
-    static{
+    static {
         startSimulation();
     }
+
     /**
      * Initializes the Time Tracker to run for
      * {@code simulationMonths} months.
      */
-    protected static void startSimulation(int simulationMonths){
+    protected static void startSimulation(int simulationMonths) {
         monthsPassed = 0;
         startingDate = LocalDate.now();
 
@@ -39,32 +40,34 @@ public class TimeTracker {
      * Initializes the Time Tracker with the configuration
      * from the {@link Settings}
      */
-    public static void startSimulation(){
+    public static void startSimulation() {
         int simulationMonths = Settings.SIMULATION_MONTHS.getValue();
         startSimulation(simulationMonths);
     }
 
     /**
      * Checks if there is any upcoming month.
+     *
      * @return true if there is at least one month left.
      */
-    public static boolean hasNextMonth(){
+    public static boolean hasNextMonth() {
         return currentDate.plusMonths(1).isBefore(endDate) || currentDate.plusMonths(1).isEqual(endDate);
     }
 
     /**
      * Checks if there is any upcoming day.
+     *
      * @return true if there is at least one day left.
      */
-    public static boolean hasNextDay(){
+    public static boolean hasNextDay() {
         return currentDate.plusDays(1).isBefore(endDate) || currentDate.plusDays(1).isEqual(endDate);
     }
 
     /**
      * Increments the simulation time with one month.
      */
-    public static void nextMonth(){
-        if(hasNextMonth()){
+    public static void nextMonth() {
+        if (hasNextMonth()) {
             currentDate = currentDate.plusMonths(1);
             monthsPassed++;
         }
@@ -72,9 +75,10 @@ public class TimeTracker {
 
     /**
      * Gets the current counter of months passed.
+     *
      * @return how many months have passed since the start of the simulation.
      */
-    public static int getMonthsPassed(){
+    public static int getMonthsPassed() {
         return monthsPassed;
     }
 
@@ -86,28 +90,31 @@ public class TimeTracker {
      *
      * @return an integer value representing the month in a year.
      */
-    public static int getMonth(){
+    public static int getMonth() {
         return currentDate.getMonthValue();
     }
 
     /**
      * Gets the current year of the simulation.
+     *
      * @return an integer representing the current year.
      */
-    public static int getYear(){
+    public static int getYear() {
         return currentDate.getYear();
     }
 
     /**
      * Get current date of the simulation.
+     *
      * @return current date as {@link LocalDate}
      */
-    public static LocalDate getCurrentDate(){
+    public static LocalDate getCurrentDate() {
         return currentDate;
     }
 
     /**
      * Get the starting date of the simulation.
+     *
      * @return the starting date as {@link LocalDate}
      */
     public static LocalDate getStartingDate() {
@@ -116,6 +123,7 @@ public class TimeTracker {
 
     /**
      * Get the end date of the simulation.
+     *
      * @return the end date as {@link LocalDate}
      */
     public static LocalDate getEndDate() {
@@ -126,22 +134,62 @@ public class TimeTracker {
      * Get the current date as formatted to
      * <p>
      * {@code January, 2021} for input {@link LocalDate(2020, 1, 1)}
+     *
      * @param date {@link LocalDate} to be formatted
      * @return the formatted date as {@link String}
      */
-    public static String toString(LocalDate date){
+    public static String toString(LocalDate date) {
         return String.format("%s, %d", getMonth(date), date.getYear());
+    }
+
+    /**
+     * Get the difference of years from
+     * {@code startingDate} to {@code currentDate}
+     * <li>
+     * Example: startingDate(2021-07-01), currentDate(2023-06-01)
+     * <p>
+     * Returns: it will return 1 (full years) -> (2023-06-01) - (2021-07-01) = (1-11-0)
+     * So the difference between those 2 dates is of one year and 11 months.
+     * </li>
+     *
+     * @return the difference between two months.
+     */
+    public static int getYearsDifference() {
+        return currentDate.minusYears(startingDate.getYear())
+                .minusMonths(startingDate.getMonthValue())
+                .minusDays(startingDate.getDayOfMonth())
+                .getYear();
+    }
+
+    /**
+     * Get the difference of months from
+     * {@code startingDate} to {@code currentDate}
+     * <li>
+     * Example: startingDate(2021-07-6), currentDate(2023-10-4)
+     * <p>
+     * Returns: it will return 2 (full months) -> (2023-10-4) - (2021-07-6) = (2-2-26)
+     * So the difference between those 2 dates is of 2 years, 2 months, 26 days.
+     * </li>
+     *
+     * @return the difference between two months.
+     */
+    public static int getMonthsDifference() {
+        return currentDate.minusYears(startingDate.getYear())
+                .minusMonths(startingDate.getMonthValue())
+                .minusDays(startingDate.getDayOfMonth())
+                .getMonthValue();
     }
 
     /**
      * Get the current date as formatted to
      * <p>
      * {@code January, 2021} for input {@link LocalDate(2020, 1, 1)}
+     *
      * @param date {@link LocalDate} to be formatted
      * @return the formatted date as {@link String}
      */
-    private static String getMonth(LocalDate date){
-        switch (date.getMonth()){
+    private static String getMonth(LocalDate date) {
+        switch (date.getMonth()) {
             case JANUARY:
                 return "January";
             case FEBRUARY:

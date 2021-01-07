@@ -4,8 +4,6 @@ import com.sparta.configuration.Settings;
 import com.sparta.model.Company;
 import com.sparta.utility.TimeTracker;
 
-import java.sql.Time;
-import java.util.Scanner;
 
 public class Printer {
 
@@ -96,6 +94,10 @@ public class Printer {
 
     public static void traineesInWaitingList(Company company){
         System.out.println("Number of trainees in waiting list: "+company.getWaitingList().size());
+    }
+
+    public static String getHeader(int years, int months){
+        return "";
     }
 
 }
