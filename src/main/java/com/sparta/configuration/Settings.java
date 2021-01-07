@@ -13,6 +13,7 @@ package com.sparta.configuration;
 
 public enum Settings {
     SIMULATION_MONTHS ("simulation_months", 12),
+    SIMULATION_STEP_BY_STEP("simulation_step_by_step", 1), // default True
     CENTER_OPENING_FREQUENCY("center_opening_frequency_in_months", 2),
     CENTER_CAPACITY("center_capacity", 100),
     NEW_TRAINEE_MIN("new_trainee_min", 20),
