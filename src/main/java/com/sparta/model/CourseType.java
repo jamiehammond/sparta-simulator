@@ -7,9 +7,13 @@ public enum CourseType {
     DEVOPS("DevOps"),
     BUSINESS("Business");
 
-    private String courseName;
+    private final String courseName;
 
-    public CourseType(String name) {
+    CourseType(String name) {
         this.courseName = name;
+    }
+
+    public String getCourseName() {
+        return courseName;
     }
 }
