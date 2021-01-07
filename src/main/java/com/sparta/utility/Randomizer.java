@@ -1,17 +1,18 @@
 package com.sparta.utility;
 
 import com.sparta.configuration.Settings;
+import com.sparta.model.CourseType;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Randomizer {
 
-    public static int generateRandomInt(int min, int max){
+    public static int generateRandomInt(int min, int max) {
         return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 
     //to be renamed "static int getNewTrainees()"
-    public static int getNewTrainees(){
+    public static int getNewTrainees() {
         return generateRandomInt(Settings.NEW_TRAINEE_MIN.getValue(), Settings.NEW_TRAINEE_MAX.getValue());
     }
 
@@ -27,5 +28,7 @@ public class Randomizer {
         return getArrayInRange(size, Settings.CENTER_ADMITTANCE_MIN.getValue(), Settings.CENTER_ADMITTANCE_MAX.getValue());
     }
 
-
+    public static CourseType getRandomCourseType() {
+        return CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
+    }
 }
