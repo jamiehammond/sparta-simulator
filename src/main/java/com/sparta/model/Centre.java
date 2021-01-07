@@ -1,6 +1,9 @@
 package com.sparta.model;
 
 import com.sparta.configuration.Settings;
+import com.sparta.utility.TimeTracker;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class Centre {
@@ -50,5 +53,23 @@ public abstract class Centre {
         return centreId;
     }
 
-    public boolean isOverGracePeriod(){}
+    public boolean isOverGracePeriod(){
+        complyToGracePeriod();
+        return TimeTracker.getCurrentDate().isAfter(graceStartingDate.plusMonths(gracePeriod));
+    }
+
+    public void setCourseType(CourseType courseType) {
+        this.courseType = courseType;
+    }
+
+    public CourseType getCourseType() {
+        return courseType;
+    }
+
+    private void complyToGracePeriod() {
+        if (trainees.size() < Settings.CENTER_GRACE_MIN_TRAINEES) {
+            this.graceStartingDate = TimeTracker.getCurrentDate();
+        }
+    }
+
 }

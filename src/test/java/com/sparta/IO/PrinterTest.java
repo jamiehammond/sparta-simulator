@@ -116,7 +116,7 @@ public void setUp(){
         company.openCentre();
         company.openCentre();
         Printer.openCentres(company);
-        Assertions.assertEquals("Number of open centres: "+ company.getCentres().size(), outputStreamCaptor.toString().trim());
+        Assertions.assertEquals("Number of open centres: "+ company.getOpenCentres().size(), outputStreamCaptor.toString().trim());
     }
 
     @Test

@@ -6,10 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-
 class CompanyTest {
 
     Company company;
@@ -22,19 +18,19 @@ class CompanyTest {
     @Test
     void openCentresTest() {
         company.openCentre();
-        Assertions.assertEquals(1, company.getCentres().size());
+        Assertions.assertEquals(1, company.getOpenCentres().size());
     }
 
     @Test
     void getCentresTest() {
-        company.getCentres().add(new Centre());
-        Assertions.assertEquals(1, company.getCentres().size());
+        company.getOpenCentres().add(new Centre());
+        Assertions.assertEquals(1, company.getOpenCentres().size());
     }
 
 
     @Test
     void getWaitingListTest() {
-        company.getCentres().add(new Centre());
+        company.getOpenCentres().add(new Centre());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
@@ -44,9 +40,9 @@ class CompanyTest {
 
     @Test
     void doesAssignTraineesAddTraineesFromWaitingList() {
-        company.getCentres().add(new Centre());
-        company.getCentres().add(new Centre());
-        company.getCentres().add(new Centre());
+        company.getOpenCentres().add(new Centre());
+        company.getOpenCentres().add(new Centre());
+        company.getOpenCentres().add(new Centre());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
@@ -63,7 +59,7 @@ class CompanyTest {
             centre.addTrainee(new Trainee());
             count++; // for debugging
         }
-        company.getCentres().add(centre);
+        company.getOpenCentres().add(centre);
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
