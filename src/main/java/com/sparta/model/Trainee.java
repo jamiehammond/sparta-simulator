@@ -25,6 +25,6 @@ public class Trainee {
     }
 
     private CourseType getRandomCourseType() {
-        return CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length)];
+        return CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
     }
 }
