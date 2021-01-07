@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.sparta.model.CourseType.JAVA;
+
+
 class CentreTest {
     static Centre centre;
     static Centre centre1;
@@ -53,4 +56,12 @@ class CentreTest {
     void checkifIDsAreUnique() {
         Assertions.assertNotEquals(centre.getCentreId(), centre1.getCentreId());
     }
-}
+
+    @Test
+    void checkGetTraineesByCourseType() {
+        for(int i = 0; i<centre.getTraineesList().size();i++) {
+            Assertions.assertEquals(JAVA, centre.getTraineesByCourseType(JAVA).get(i).getCourseType());
+        }
+        }
+
+    }
