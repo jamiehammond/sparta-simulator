@@ -15,8 +15,8 @@ public class App
         Company spartaGlobal = new Company();
 
         // TODO : User input code from inputManager here
-        Printer.greeting();
         TimeTracker.startSimulation();
+        Printer.greeting();
         Printer.printProgress(spartaGlobal);
 
         while (TimeTracker.hasNextMonth()) {

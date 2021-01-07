@@ -5,14 +5,15 @@ import com.sparta.utility.TimeTracker;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 
 public abstract class Centre {
-    private int centreId;
+    private final int centreId;
     private final int capacity;
-    private ArrayList<Trainee> trainees;
+    private final ArrayList<Trainee> trainees;
     private static int centreCount;
     private CourseType courseType;
-    private int gracePeriod;
+    private final int gracePeriod;
     private LocalDate graceStartingDate;
 
     static {
@@ -27,6 +28,10 @@ public abstract class Centre {
         centreCount++;
         this.courseType = null;
         this.graceStartingDate = null;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public ArrayList<Trainee> getTraineesList(){
@@ -58,18 +63,19 @@ public abstract class Centre {
         return TimeTracker.getCurrentDate().isAfter(graceStartingDate.plusMonths(gracePeriod));
     }
 
-    public void setCourseType(CourseType courseType) {
-        this.courseType = courseType;
-    }
-
     public CourseType getCourseType() {
         return courseType;
     }
 
     private void complyToGracePeriod() {
-        if (trainees.size() < Settings.CENTER_GRACE_MIN_TRAINEES) {
+        if (trainees.size() < Settings.CENTRE_GRACE_MIN_TRAINEES_IN_TRAINING.getValue()) {
             this.graceStartingDate = TimeTracker.getCurrentDate();
         }
     }
 
+    public abstract Collection<? extends Trainee> getTraineesByCourseType(CourseType courseType);
+
+    protected void setCourseType(CourseType courseType){
+        this.courseType = courseType;
+    }
 }

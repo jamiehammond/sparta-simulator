@@ -14,7 +14,7 @@ public class CentreFactory {
             case BOOTCAMP:
                 return new Bootcamp();
             case TECH_CENTRE:
-                return new TechCentre(Randomizer.getCourseType());
+                return new TechCentre();
             case TRAINING_HUB:
                 return new TrainingHub();
         }

@@ -23,14 +23,14 @@ class CompanyTest {
 
     @Test
     void getCentresTest() {
-        company.getOpenCentres().add(new Centre());
+        company.getOpenCentres().add(new Bootcamp());
         Assertions.assertEquals(1, company.getOpenCentres().size());
     }
 
 
     @Test
     void getWaitingListTest() {
-        company.getOpenCentres().add(new Centre());
+        company.getOpenCentres().add(new TechCentre());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
@@ -40,9 +40,9 @@ class CompanyTest {
 
     @Test
     void doesAssignTraineesAddTraineesFromWaitingList() {
-        company.getOpenCentres().add(new Centre());
-        company.getOpenCentres().add(new Centre());
-        company.getOpenCentres().add(new Centre());
+        company.getOpenCentres().add(new TechCentre());
+        company.getOpenCentres().add(new TechCentre());
+        company.getOpenCentres().add(new TechCentre());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
@@ -52,7 +52,7 @@ class CompanyTest {
 
     @Test
     void doesAssignTraineesStopAddingTraineesWhenCentresAreFull() {
-        Centre centre = new Centre();
+        Centre centre = new TechCentre();
 
         int count = 0;
         while (!centre.isFull()) {

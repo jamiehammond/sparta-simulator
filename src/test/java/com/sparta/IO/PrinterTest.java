@@ -33,7 +33,6 @@ public void setUp(){
         Assertions.assertEquals("The default values are: \n" +
                 "Simulation time in months: " +Settings.SIMULATION_MONTHS.getValue() + "\n" +
                 "Centre opening frequency: " +Settings.CENTER_OPENING_FREQUENCY.getValue() + "\n" +
-                "Centre capacity: " +Settings.CENTER_CAPACITY.getValue() + "\n" +
                 "Lower bound for new trainee range: " +Settings.NEW_TRAINEE_MIN.getValue() + "\n" +
                 "Upper bound for new trainee range: " +Settings.CENTER_OPENING_FREQUENCY.getValue() + "\n" +
                 "New trainee frequency in months: " +Settings.NEW_TRAINEE_FREQUENCY.getValue() + "\n" +
@@ -55,11 +54,11 @@ public void setUp(){
         Assertions.assertEquals("Enter centre opening frequency (Press enter to use default value: "+ Settings.CENTER_OPENING_FREQUENCY.getValue(), outputStreamCaptor.toString().trim());
     }
 
-    @Test
-    void doesCentreCapacityMatchExpected(){
-        Printer.centreCapacity();
-        Assertions.assertEquals("Enter centre capacity (Press enter to use default value: "+Settings.CENTER_CAPACITY.getValue(), outputStreamCaptor.toString().trim());
-    }
+//    @Test
+//    void doesCentreCapacityMatchExpected(){
+//        Printer.centreCapacity();
+//        Assertions.assertEquals("Enter centre capacity (Press enter to use default value: "+Settings.CENTER_CAPACITY.getValue(), outputStreamCaptor.toString().trim());
+//    }
 
     @Test
     void doesNewTraineeMinMatchExpected(){

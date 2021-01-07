@@ -9,16 +9,24 @@ import java.util.LinkedList;
 
 public class Company {
 
-    private ArrayList<Centre> openCentres;
-    private ArrayList<Centre> closedCentres;
-    private ArrayList<Centre> fullCentres;
-    private LinkedList<Trainee> waitingList;
+    private final ArrayList<Centre> openCentres;
+    private final ArrayList<Centre> closedCentres;
+    private final ArrayList<Centre> fullCentres;
+    private final LinkedList<Trainee> waitingList;
+    private final LinkedList<Trainee> traineesOnBench;
+    private final ArrayList<Client> clients;
 
     public Company() {
         this.openCentres = new ArrayList<>();
         this.closedCentres = new ArrayList<>();
         this.fullCentres = new ArrayList<>();
         this.waitingList = new LinkedList<>();
+        this.traineesOnBench = new LinkedList<>();
+        this.clients = new ArrayList<>();
+    }
+
+    public LinkedList<Trainee> getTraineesOnBench() {
+        return traineesOnBench;
     }
 
     public LinkedList<Trainee> getWaitingList() {
@@ -72,6 +80,10 @@ public class Company {
             count += centre.getTraineesList().size();
         }
         return count;
+    }
+
+    public int getNumberOfClosedCentres(){
+        return this.closedCentres.size();
     }
 
     private Collection<Trainee> getTraineesInTraining(Collection<Centre> centres){
@@ -140,5 +152,13 @@ public class Company {
             trainees.addAll(fullCentre.getTraineesByCourseType(courseType));
         }
         return trainees;
+    }
+
+    public Collection<Client> getClients() {
+        return clients;
+    }
+
+    public int getNumberOfClients() {
+        return clients.size();
     }
 }

@@ -28,11 +28,11 @@ public class Randomizer {
         return getArrayInRange(size, Settings.CENTER_ADMITTANCE_MIN.getValue(), Settings.CENTER_ADMITTANCE_MAX.getValue());
     }
 
-    public static CourseType getRandomCourseType() {
+    public static CourseType getCourseType() {
         return CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
     }
 
-    public static CentreType getRandomCentreType() {
+    public static CentreType getCentreType() {
         return CentreType.values()[Randomizer.generateRandomInt(0, CentreType.values().length - 1)];
     }
 }

@@ -8,9 +8,9 @@ import java.util.LinkedList;
 
 public class Client {
 
-    private int clientID;
+    private final int clientID;
     private static int count=0;
-    private LinkedList<ClientRequirements> clientRequirements;
+    private final LinkedList<ClientRequirements> clientRequirements;
     private ArrayList<Trainee> hiredTrainees;
     private boolean isClientHappy;
 
@@ -27,11 +27,11 @@ public class Client {
   
     private void checkClientHappiness() {
         for (ClientRequirements currentReq : clientRequirements) {
-            if (currentReq.isCompleted == false) {
+            if (!currentReq.isCompleted()) {
                 LocalDate startDate = currentReq.getStartDate();
-                LocalDate endDate = startDate.plusYears(Settings.REQUIREMENT_EXPIRY_TIME.getValue());
+                LocalDate endDate = startDate.plusMonths(Settings.CLIENT_REQUIREMENT_EXPIRY_TIME.getValue());
                 if (TimeTracker.getCurrentDate().isAfter(endDate)) {
-                    if (currentReq.getHiredTrainees.size() < currentReq.getTraineesToHire()) {
+                    if (currentReq.getHiredTrainees().size() < currentReq.getTraineesToHire()) {
                         isClientHappy = false;
                         break;
                     }

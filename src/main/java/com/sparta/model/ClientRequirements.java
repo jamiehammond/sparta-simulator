@@ -9,31 +9,26 @@ import java.util.ArrayList;
 
 public class ClientRequirements {
 
-    private LocalDate startDate;
+    private final LocalDate startDate;
     private CourseType courseType;
-    private int traineesToHire;
+    private final int traineesToHire;
     private boolean completed;
-    private ArrayList<Trainee> hiredTrainees;
+    private final ArrayList<Trainee> hiredTrainees;
 
     public ClientRequirements() {
         this.startDate = TimeTracker.getCurrentDate();
-        this.courseType = Randomizer.getRandomCourseType();
+        this.courseType = Randomizer.getCourseType();
         this.traineesToHire = Randomizer.generateRandomInt(Settings.CLIENT_HIRE_MIN.getValue(), Settings.CLIENT_HIRE_MAX.getValue());
         this.completed = false;
-        this.hiredTrainees = new ArrayList<Trainee>();
+        this.hiredTrainees = new ArrayList<>();
     }
 
     public ArrayList<Trainee> getHiredTrainees(){return hiredTrainees;}
 
     public void addTrainee(Trainee trainee){hiredTrainees.add(trainee);}
 
-
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     public CourseType getCourseType() {
@@ -46,10 +41,6 @@ public class ClientRequirements {
 
     public int getTraineesToHire() {
         return traineesToHire;
-    }
-
-    public void setTraineesToHire(int traineesToHire) {
-        this.traineesToHire = traineesToHire;
     }
 
     public boolean isCompleted() {

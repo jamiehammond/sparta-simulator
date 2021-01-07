@@ -4,6 +4,7 @@ import com.sparta.IO.Printer;
 import com.sparta.utility.TimeTracker;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
@@ -52,19 +53,19 @@ public class ReportPack {
      */
     private void populateList(Company company) {
         add(Printer.getHeader(TimeTracker.getYearsDifference(), TimeTracker.getMonthsDifference()));
-        add(Printer.getCompanyHeader(company));
-        add(Printer.getTotalOpenCentres(company.getNumberOfOpenCentres()));
+        add(Printer.getCompanyHeader());
+        add(Printer.getTotalOpenCentres(company));
         add(Printer.getCentreBreakdown(company.getOpenCentres()));
-        add(Printer.getTotalFullCentres(company.getNumberOfFullCentres()));
+        add(Printer.getTotalFullCentres(company));
         add(Printer.getCentreBreakdown(company.getFullCentres()));
-        add(Printer.getTotalClosedCentres(company.getNumberOfClosedCentres));
+        add(Printer.getTotalClosedCentres(company));
         add(Printer.getCentreBreakdown(company.getClosedCentres()));
-        add(Printer.getTotalTraineesInTraining(company.getNumberOfTraineesInTraining()));
+        add(Printer.getTotalTraineesInTraining(company));
         add(Printer.getTraineesBreakdown(company.getTraineesInTraining()));
-        add(Printer.getTotalTraineesOnWaiting(company.getNumberOfTraineesOnWaiting));
+        add(Printer.getTotalTraineesOnWaiting(company));
         add(Printer.getTraineesBreakdown(company.getTraineesOnWaiting()));
         add(Printer.getTotalClients(company));
-        add(Printer.getClientsBreakdown(company));
+        add(Printer.getClientsBreakdown(company.getClients()));
     }
 
     /**
