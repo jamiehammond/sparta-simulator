@@ -9,7 +9,7 @@ public class TechCentre extends Centre {
 
     public TechCentre() {
         super(Settings.CENTER_CAPACITY_TECH_CENTRE.getValue(), Settings.CENTER_GRACE_PERIOD_TECH_CENTRE.getValue());
-        this.courseType = CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
+        this.courseType = Randomizer.getRandomCourseType();
     }
 
     @Override
