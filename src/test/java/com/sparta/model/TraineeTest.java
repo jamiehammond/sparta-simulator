@@ -21,4 +21,9 @@ class TraineeTest {
     void checkIfCountIsCorrect() {
         Assertions.assertEquals(3, trainee.getCount());
     }
+
+    @Test
+    void checkIfTraineeHasCourseType() {
+        Assertions.assertTrue(trainee.getCourseType() != null);
+    }
 }
