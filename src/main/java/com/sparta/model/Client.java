@@ -1,6 +1,7 @@
 package com.sparta.model;
 
 import com.sparta.configuration.Settings;
+import com.sparta.utility.Randomizer;
 import com.sparta.utility.TimeTracker;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,12 +14,13 @@ public class Client {
     private final LinkedList<ClientRequirements> clientRequirements;
     private ArrayList<Trainee> hiredTrainees;
     private boolean isClientHappy;
+    private CourseType courseType;
 
     public Client() {
         this.clientID =count;
         count++;
         clientRequirements = new LinkedList<>();
-        clientRequirements.add(new ClientRequirements());
+        this.courseType = Randomizer.getCourseType();
     }
   
     public void addHiredTrainee(Trainee trainee)  {
@@ -53,5 +55,18 @@ public class Client {
     public LinkedList<ClientRequirements> getClientRequirements() {return clientRequirements;}
     public ArrayList<Trainee> getHiredTrainees() {return hiredTrainees;}
     public boolean isClientHappy() {return isClientHappy;}
+
+    public void generateRequirements() {
+        clientRequirements.add(new ClientRequirements(this.courseType));
+    }
+
+    public void checkRequirements() {
+        for (ClientRequirements clientRequirement : clientRequirements) {
+            if (!clientRequirement.isDueDate() && !clientRequirement.isCompleted()) {
+                isClientHappy = false;
+                break;
+            }
+        }
+    }
 
 }

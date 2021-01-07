@@ -6,6 +6,9 @@ import com.sparta.utility.TimeTracker;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 
 public class ClientRequirements {
 
@@ -15,12 +18,23 @@ public class ClientRequirements {
     private boolean completed;
     private final ArrayList<Trainee> hiredTrainees;
 
-    public ClientRequirements() {
+    {
         this.startDate = TimeTracker.getCurrentDate();
-        this.courseType = Randomizer.getCourseType();
         this.traineesToHire = Randomizer.generateRandomInt(Settings.CLIENT_HIRE_MIN.getValue(), Settings.CLIENT_HIRE_MAX.getValue());
         this.completed = false;
         this.hiredTrainees = new ArrayList<>();
+    }
+
+    public ClientRequirements() {
+        this.courseType = Randomizer.getCourseType();
+    }
+
+    public ClientRequirements(CourseType courseType) {
+        this.courseType = courseType;
+    }
+
+    public boolean isDueDate() {
+        return !TimeTracker.getCurrentDate().isAfter(startDate.plusMonths(Settings.CLIENT_REQUIREMENT_EXPIRY_TIME.getValue()));
     }
 
     public ArrayList<Trainee> getHiredTrainees(){return hiredTrainees;}
@@ -50,4 +64,20 @@ public class ClientRequirements {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+    public Collection<Trainee> addTrainees(Collection<Trainee> trainees) {
+        LinkedList<Trainee> remainingTrainees = new LinkedList<>(trainees);
+        LinkedList<Trainee> currentlyHiredTrainees = new LinkedList<>();
+        while (remainingTrainees.peek() != null && getHiredTrainees().size()<traineesToHire) {
+            assert remainingTrainees.peek() != null;
+            if (remainingTrainees.peek().getCourseType() == this.courseType) {
+                currentlyHiredTrainees.add(remainingTrainees.poll());
+            }
+        }
+        if (getHiredTrainees().size() == traineesToHire) {
+            completed = true;
+        }
+        return currentlyHiredTrainees;
+    }
+
 }

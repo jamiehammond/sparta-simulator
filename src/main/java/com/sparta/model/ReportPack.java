@@ -74,4 +74,10 @@ public class ReportPack {
     private void add(String line) {
         reportLines.add(line);
     }
+
+    public void print(){
+        for (String reportLine : reportLines) {
+            Printer.print(reportLine);
+        }
+    }
 }

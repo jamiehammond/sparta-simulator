@@ -6,6 +6,7 @@ import com.sparta.utility.TimeTracker;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 
 public abstract class Centre {
     private final int centreId;
@@ -51,6 +52,7 @@ public abstract class Centre {
     }
 
     public void addTrainee(Trainee trainee)  {
+        trainee.startTraining();
         trainees.add(trainee);
     }
 
@@ -77,5 +79,16 @@ public abstract class Centre {
 
     protected void setCourseType(CourseType courseType){
         this.courseType = courseType;
+    }
+
+    public LinkedList<Trainee> getGraduates() {
+        LinkedList<Trainee> graduates = new LinkedList<>();
+        for (Trainee trainee : trainees) {
+            if (trainee.isGraduate()) {
+                graduates.add(trainee);
+            }
+        }
+        trainees.removeAll(graduates);
+        return graduates;
     }
 }

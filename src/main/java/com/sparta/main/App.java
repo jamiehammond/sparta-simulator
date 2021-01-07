@@ -4,6 +4,7 @@ import com.sparta.IO.Printer;
 import com.sparta.configuration.Settings;
 import com.sparta.controller.TraineeController;
 import com.sparta.model.Company;
+import com.sparta.model.ReportPack;
 import com.sparta.utility.Delayer;
 import com.sparta.utility.Randomizer;
 import com.sparta.utility.TimeTracker;
@@ -20,7 +21,7 @@ public class App
         Printer.printProgress(spartaGlobal);
 
         while (TimeTracker.hasNextMonth()) {
-            Delayer.delay(Settings.MONTH_IN_MS.getValue());
+//            Delayer.delay(Settings.MONTH_IN_MS.getValue());
             if (TimeTracker.getMonthsPassed() % Settings.CENTER_OPENING_FREQUENCY.getValue() == 0) {
                 spartaGlobal.openCentre();
             }
@@ -29,9 +30,20 @@ public class App
                 TraineeController.generateTrainees(spartaGlobal.getWaitingList(), traineesToGenerate);
             }
             spartaGlobal.assignTrainees();
+            spartaGlobal.graduateTrainees();
+            spartaGlobal.checkCentresForClosing();
+            if (TimeTracker.getMonthsPassed() > Settings.CLIENT_FIRST_CLIENT_AFTER_FIRST_MONTHS.getValue()) {
+                if (Randomizer.getBoolean()) {
+                    spartaGlobal.addClient();
+                }
+                if (spartaGlobal.getHappyClients().size() > 0) {
+                    spartaGlobal.fulfillClientRequirements();
+                }
+            }
             TimeTracker.nextMonth();
-            Printer.printProgress(spartaGlobal);
+
         }
+        ReportPack.generateReport(spartaGlobal).print();
 //        Printer.printProgress(spartaGlobal);
     }
 

@@ -3,7 +3,9 @@ package com.sparta.model;
 import com.sparta.controller.CentreFactory;
 import com.sparta.utility.Randomizer;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
@@ -40,21 +42,21 @@ public class Company {
     }
 
     public void assignTrainees() {
-        ArrayList<Centre> availableCentres = centresAvailable();
-        int[] monthlyAllowance = Randomizer.getCentreAllowanceArray(availableCentres.size());
-//        System.err.println(Arrays.toString(monthlyAllowance));
-        while (availableCentres.size() != 0 && waitingList.size() != 0) {
-            int temp = Randomizer.generateRandomInt(0, availableCentres.size()-1);
-            Centre currentCentre = availableCentres.get(temp);
-            if (!currentCentre.isFull() && monthlyAllowance[temp] > 0) {
-                addTraineeToCentre(waitingList.peek(), currentCentre);
-                monthlyAllowance[temp]--;
-                waitingList.poll();
-            } else {
-                availableCentres.remove(currentCentre);
+        ArrayList<Integer> monthlyAllowance = new ArrayList<>(Randomizer.getCentreAllowanceArray(openCentres.size()));
+        while(openCentres.size()>0 && waitingList.size()>0){
+            int randomCentrePick = Randomizer.generateRandomInt(0, openCentres.size()-1);
+            Centre randomCentre = openCentres.get(randomCentrePick);
+            if(!randomCentre.isFull() && monthlyAllowance.get(randomCentrePick)>0){
+                assert waitingList.peek() != null;
+                    randomCentre.addTrainee(waitingList.poll());
+                    monthlyAllowance.set(randomCentrePick, monthlyAllowance.get(randomCentrePick)-1);
+            }else{
+                fullCentres.add(randomCentre);
+                openCentres.remove(randomCentre);
             }
         }
     }
+
 
     private ArrayList<Centre> centresAvailable() {
         return new ArrayList<>(openCentres);
@@ -172,4 +174,43 @@ public class Company {
     public int getNumberOfClients() {
         return clients.size();
     }
+
+    public void addClient() {
+        clients.add(new Client());
+    }
+
+    public void graduateTrainees() {
+        for (Centre openCentre : openCentres) {
+            traineesOnBench.addAll(openCentre.getGraduates());
+        }
+        for (Centre fullCentre : fullCentres) {
+            traineesOnBench.addAll(fullCentre.getGraduates());
+
+        }
+    }
+
+    public void fulfillClientRequirements() {
+        for (Client client : clients) {
+            client.checkRequirements();
+            if (client.isClientHappy()) {
+                for (ClientRequirements clientRequirement : client.getClientRequirements()) {
+                    if (!clientRequirement.isCompleted()) {
+                        traineesOnBench.removeAll(clientRequirement.addTrainees(getTraineeOnBenchWithCourseType(clientRequirement.getCourseType())));
+                    }
+                }
+
+            }
+        }
+    }
+
+    public Collection<Client> getHappyClients() {
+        ArrayList<Client> happyClients = new ArrayList<>();
+        for (Client client : clients) {
+            if (client.isClientHappy()) {
+                happyClients.add(client);
+            }
+        }
+        return happyClients;
+    }
+
 }
