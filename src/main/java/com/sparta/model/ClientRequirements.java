@@ -17,10 +17,10 @@ public class ClientRequirements {
 
     public ClientRequirements() {
         this.startDate = TimeTracker.getCurrentDate();
-        this.courseType = CourseType.values()[Randomizer.generateRandomInt(0, CourseType.values().length - 1)];
+        this.courseType = Randomizer.getRandomCourseType();
         this.traineesToHire = Randomizer.generateRandomInt(Settings.CLIENT_HIRE_MIN.getValue(), Settings.CLIENT_HIRE_MAX.getValue());
         this.completed = false;
-        this.hiredTrainees = new ArrayList<Trainee>;
+        this.hiredTrainees = new ArrayList<Trainee>();
     }
 
     public ArrayList<Trainee> getHiredTrainees(){return hiredTrainees;}
