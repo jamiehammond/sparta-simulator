@@ -6,6 +6,7 @@ import com.sparta.utility.Randomizer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 public class Company {
 
@@ -150,6 +151,16 @@ public class Company {
         }
         for(Centre fullCentre: fullCentres){
             trainees.addAll(fullCentre.getTraineesByCourseType(courseType));
+        }
+        return trainees;
+    }
+
+    public Collection<Trainee> getTraineeOnBenchWithCourseType(CourseType courseType){
+        ArrayList<Trainee> trainees = new ArrayList<>();
+        for(Trainee trainee: traineesOnBench){
+            if(trainee.getCourseType()==courseType) {
+                trainees.add(trainee);
+            }
         }
         return trainees;
     }
