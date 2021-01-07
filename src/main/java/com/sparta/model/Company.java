@@ -1,25 +1,24 @@
 package com.sparta.model;
 
-import com.sparta.configuration.Settings;
+import com.sparta.controller.CentreFactory;
 import com.sparta.utility.Randomizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 
 public class Company {
 
-    private ArrayList<Centre> centres;
+    private ArrayList<Centre> openCentres;
     private ArrayList<Centre> closedCentres;
+    private ArrayList<Centre> fullCentres;
     private LinkedList<Trainee> waitingList;
 
     public Company() {
-        this.centres = new ArrayList<>();
+        this.openCentres = new ArrayList<>();
+        this.closedCentres = new ArrayList<>();
+        this.fullCentres = new ArrayList<>();
         this.waitingList = new LinkedList<>();
-    }
-
-    public ArrayList<Centre> getCentres() {
-        return centres;
     }
 
     public LinkedList<Trainee> getWaitingList() {
@@ -27,12 +26,12 @@ public class Company {
     }
 
     public void openCentre() {
-        Centre centre = new Centre();
-        centres.add(centre);
+        Centre centre = CentreFactory.getRandomCentre();
+        openCentres.add(centre);
     }
 
     public void assignTrainees() {
-        ArrayList<Centre> availableCentres = centresAvailable(centres);
+        ArrayList<Centre> availableCentres = centresAvailable();
         int[] monthlyAllowance = Randomizer.getCentreAllowanceArray(availableCentres.size());
 //        System.err.println(Arrays.toString(monthlyAllowance));
         while (availableCentres.size() != 0 && waitingList.size() != 0) {
@@ -48,14 +47,8 @@ public class Company {
         }
     }
 
-    private ArrayList<Centre> centresAvailable(ArrayList<Centre> centres) {
-        ArrayList<Centre> centresAvailable = new ArrayList<>();
-        for (Centre centre : centres) {
-            if (!centre.isFull()) {
-                centresAvailable.add(centre);
-            }
-        }
-        return centresAvailable;
+    private ArrayList<Centre> centresAvailable() {
+        return new ArrayList<>(openCentres);
     }
 
     private void addTraineeToCentre(Trainee trainee, Centre currentCentre) {
@@ -63,25 +56,89 @@ public class Company {
     }
 
     public int getNumberOfFullCentres() {
-        return centres.size() - centresAvailable(centres).size();
+        return fullCentres.size();
     }
 
     public int getNumberOfOpenCentres() {
-        return centresAvailable(centres).size();
+        return openCentres.size();
     }
 
     public int getNumberOfTraineesInTraining() {
         int count = 0;
-        for (Centre centre : centres) {
+        for (Centre centre : openCentres) {
+            count += centre.getTraineesList().size();
+        }
+        for (Centre centre : fullCentres) {
             count += centre.getTraineesList().size();
         }
         return count;
     }
 
-    public void checkCentresForClosing(){}
-    public ArrayList<Centre> getCentresByCentreType(CentreType){}
-    public ArrayList<Centre> getOpenCentresByCentreType(CentreType){}
-    public ArrayList<Centre> getClosedCentresByCentreType(CentreType){}
-    public ArrayList<Centre> getFullCentresByCentreType(CentreType){}
-    public ArrayList<Trainee> getTraineesByCourseType(CourseType){}
+    private Collection<Trainee> getTraineesInTraining(Collection<Centre> centres){
+        Collection<Trainee> trainees = new ArrayList<>();
+        for (Centre centre : centres) {
+            trainees.addAll(centre.getTraineesList());
+        }
+        return trainees;
+    }
+
+    public Collection<Centre> getOpenCentres(){
+        return openCentres;
+    } // will return a Collection of Centres that are open
+    public Collection<Centre> getFullCentres(){
+        return fullCentres;
+    } // will return a Collection of Centre that are full
+    public Collection<Centre> getClosedCentres(){
+        return closedCentres;
+    } // will return a Collection of Centre that are closed
+    public Collection<Trainee> getTraineesInTraining(){
+        ArrayList<Trainee> traineesInTraining = new ArrayList<>(getTraineesInTraining(openCentres));
+        traineesInTraining.addAll(getTraineesInTraining(fullCentres));
+        return traineesInTraining;
+    } // will return a Collection of Trainee that will contain all the trainees from all the centres
+    public int getNumberOfTraineesOnWaiting(){
+        return waitingList.size();
+    } // will return how many trainees are currently on waiting list
+    public Collection<Trainee> getTraineesOnWaiting(){
+     return waitingList;
+    }// will return a Collection of Trainee that will contain all trainees waiting to enter a Centre
+
+    public void checkCentresForClosing(){
+        ArrayList<Centre> centresToBeClosed = new ArrayList<>();
+        for (Centre centre: openCentres) {
+            if(centre.isOverGracePeriod()){
+                centresToBeClosed.add(centre);
+            }
+        }
+        closedCentres.addAll(centresToBeClosed);
+        openCentres.removeAll(centresToBeClosed);
+    } // will check every centre to see if it is within the grace period
+    private Collection<Centre> getCentresByCentreType(CentreType centreType, Collection<Centre> centres){
+        ArrayList<Centre> centresOfType = new ArrayList<>();
+        for (Centre centre: centres) {
+            if(centre.getClass().isInstance(centreType.getInstance())){
+                centresOfType.add(centre);
+            }
+        }
+        return centresOfType;
+    }
+    public Collection<Centre> getOpenCentresByCentreType(CentreType centreType){
+        return getCentresByCentreType(centreType, openCentres);
+    }
+    public Collection<Centre> getClosedCentresByCentreType(CentreType centreType){
+        return getCentresByCentreType(centreType, closedCentres);
+    }
+    public Collection<Centre> getFullCentresByCentreType(CentreType centreType){
+        return getCentresByCentreType(centreType, fullCentres);
+    }
+    public Collection<Trainee> getTraineesByCourseType(CourseType courseType){
+        ArrayList<Trainee> trainees = new ArrayList<>();
+        for (Centre openCentre : openCentres) {
+            trainees.addAll(openCentre.getTraineesByCourseType(courseType));
+        }
+        for(Centre fullCentre: fullCentres){
+            trainees.addAll(fullCentre.getTraineesByCourseType(courseType));
+        }
+        return trainees;
+    }
 }
