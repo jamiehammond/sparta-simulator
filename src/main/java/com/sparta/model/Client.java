@@ -17,7 +17,8 @@ public class Client {
     public Client() {
         this.clientID =count;
         count++;
-        clientRequirements = ClientRequirements.clientRequirements();
+        clientRequirements = new LinkedList<>();
+        clientRequirements.add(new ClientRequirements());
     }
     public void addHiredTrainee(Trainee trainee)  {
         hiredTrainees.add(trainee);
