@@ -130,7 +130,7 @@ public class Company {
     public void checkCentresForClosing(){
         ArrayList<Centre> centresToBeClosed = new ArrayList<>();
         for (Centre centre: openCentres) {
-            if(centre.isOverGracePeriod()){
+            if(centre.isOverGracePeriod() && centre.getTraineesList().size()<25){
                 centresToBeClosed.add(centre);
             }
         }
