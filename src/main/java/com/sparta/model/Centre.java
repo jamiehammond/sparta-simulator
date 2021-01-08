@@ -6,6 +6,7 @@ import com.sparta.utility.TimeTracker;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public abstract class Centre {
@@ -31,6 +32,10 @@ public abstract class Centre {
         this.graceStartingDate = null;
     }
 
+    public static int getTotalCentresCount(){
+        return centreCount;
+    }
+
     public int getCapacity() {
         return capacity;
     }
@@ -44,7 +49,7 @@ public abstract class Centre {
     }
 
     public boolean isFull() {
-        return !(getRemainingCapacity()>0);
+        return getRemainingCapacity()==0;
     }
 
     private int getRemainingCapacity() {

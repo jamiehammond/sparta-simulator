@@ -53,4 +53,8 @@ public class Randomizer {
         return centres.get(generateRandomInt(0, centres.size()-1));
     }
 
+    public static CentreType getRandomCentreType(Collection<CentreType> availableCentreTypes) {
+        ArrayList<CentreType> centreTypes = new ArrayList<>(availableCentreTypes);
+        return centreTypes.get(generateRandomInt(0, centreTypes.size()-1));
+    }
 }

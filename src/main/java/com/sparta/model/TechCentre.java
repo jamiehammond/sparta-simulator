@@ -8,9 +8,20 @@ import java.util.Collections;
 
 public class TechCentre extends Centre {
 
+    private static int count;
+
+    static{
+        count = 0;
+    }
+
     public TechCentre() {
         super(Settings.CENTRE_CAPACITY_TECH_CENTRE.getValue(), Settings.CENTRE_GRACE_PERIOD_TECH_CENTRE.getValue());
         super.setCourseType(Randomizer.getCourseType());
+        count++;
+    }
+
+    public static int getCentreCount(){
+        return count;
     }
 
     @Override

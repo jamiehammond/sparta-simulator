@@ -54,7 +54,7 @@ class BootCampTest {
     void checkIfCountIncrease() {
         bootCamp.addTrainee(trainees[0]);
         bootCamp.addTrainee(trainees[1]);
-        Assertions.assertEquals(2, Bootcamp.getCount());
+        Assertions.assertEquals(2, Bootcamp.getCentreCount());
     }
     
 }

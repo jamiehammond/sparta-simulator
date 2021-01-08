@@ -131,6 +131,7 @@ public class Company {
                 centresToBeClosed.add(centre);
             }
         }
+        System.err.println("Centres to close ="+centresToBeClosed.size());
         closedCentres.addAll(centresToBeClosed);
         openCentres.removeAll(centresToBeClosed);
     } // will check every centre to see if it is within the grace period
@@ -219,4 +220,29 @@ public class Company {
         return happyClients;
     }
 
+    public void checkCentresForOpening() {
+        for (Centre centre : closedCentres) {
+            if (!centre.isFull()) {
+                markCentreAsOpen(centre);
+            }
+        }
+    }
+
+    private void markCentreAsFull(Centre fullCentre){
+        if(openCentres.remove(fullCentre)){
+            fullCentres.add(fullCentre);
+        }
+    }
+
+    private void markCentreAsOpen(Centre openCentre){
+        if(fullCentres.remove(openCentre)){
+            openCentres.add(openCentre);
+        }
+    }
+
+    private void markCentreAsClosed(Centre closedCentre){
+        if(openCentres.remove(closedCentre)){
+            closedCentres.add(closedCentre);
+        }
+    }
 }
