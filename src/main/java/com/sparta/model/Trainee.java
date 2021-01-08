@@ -4,6 +4,9 @@ import com.sparta.configuration.Settings;
 import com.sparta.utility.Randomizer;
 import com.sparta.utility.TimeTracker;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 
 public class Trainee {
     private int traineeID;
@@ -46,5 +49,13 @@ public class Trainee {
 
     public LocalDate getGraduationDate() {
         return graduationDate;
+    }
+
+    public static Collection<Trainee> generateTrainees(int numberOfTrainees) {
+        ArrayList<Trainee> trainees = new ArrayList<>();
+        for (int i = 0; i < numberOfTrainees; i++) {
+             trainees.add(new Trainee());
+        }
+        return trainees;
     }
 }
