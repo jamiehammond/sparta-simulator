@@ -1,6 +1,5 @@
 package com.sparta.controller;
 
-import com.sparta.model.Company;
 import com.sparta.model.Trainee;
 import java.util.LinkedList;
 

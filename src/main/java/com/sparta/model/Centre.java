@@ -1,23 +1,43 @@
 package com.sparta.model;
 
 import com.sparta.configuration.Settings;
-import java.util.ArrayList;
+import com.sparta.utility.TimeTracker;
 
-public class Centre {
-    private int centreId;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+public abstract class Centre {
+    private final int centreId;
     private final int capacity;
-    private ArrayList<Trainee> trainees;
+    private final ArrayList<Trainee> trainees;
     private static int centreCount;
+    private CourseType courseType;
+    private final int gracePeriod;
+    private LocalDate graceStartingDate;
 
     static {
         centreCount=0;
     }
 
-    public Centre () {
-        this.capacity = Settings.CENTER_CAPACITY.getValue();
+    public Centre (int capacity, int gracePeriod) {
+        this.capacity = capacity;
         trainees  = new ArrayList<>();
+        this.gracePeriod = gracePeriod;
         this.centreId=centreCount;
         centreCount++;
+        this.courseType = null;
+        this.graceStartingDate = null;
+    }
+
+    public static int getTotalCentresCount(){
+        return centreCount;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public ArrayList<Trainee> getTraineesList(){
@@ -29,7 +49,7 @@ public class Centre {
     }
 
     public boolean isFull() {
-        return !(getRemainingCapacity()>0);
+        return getRemainingCapacity()==0;
     }
 
     private int getRemainingCapacity() {
@@ -37,10 +57,43 @@ public class Centre {
     }
 
     public void addTrainee(Trainee trainee)  {
+        trainee.startTraining();
         trainees.add(trainee);
     }
 
     public int getCentreId() {
         return centreId;
+    }
+
+    public boolean isOverGracePeriod(){
+        complyToGracePeriod();
+        return TimeTracker.getCurrentDate().isAfter(graceStartingDate.plusMonths(gracePeriod));
+    }
+
+    public CourseType getCourseType() {
+        return courseType;
+    }
+
+    private void complyToGracePeriod() {
+        if (trainees.size() < Settings.CENTRE_GRACE_MIN_TRAINEES_IN_TRAINING.getValue()) {
+            this.graceStartingDate = TimeTracker.getCurrentDate();
+        }
+    }
+
+    public abstract Collection<? extends Trainee> getTraineesByCourseType(CourseType courseType);
+
+    protected void setCourseType(CourseType courseType){
+        this.courseType = courseType;
+    }
+
+    public LinkedList<Trainee> getGraduates() {
+        LinkedList<Trainee> graduates = new LinkedList<>();
+        for (Trainee trainee : trainees) {
+            if (trainee.isGraduate()) {
+                graduates.add(trainee);
+            }
+        }
+        trainees.removeAll(graduates);
+        return graduates;
     }
 }
