@@ -4,10 +4,7 @@ import com.sparta.controller.CentreFactory;
 import com.sparta.utility.Randomizer;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Company {
@@ -42,19 +39,28 @@ public class Company {
     }
 
     public void assignTrainees() {
-        ArrayList<Integer> monthlyAllowance = new ArrayList<>(Randomizer.getCentreAllowanceArray(openCentres.size()));
-        while(openCentres.size()>0 && waitingList.size()>0){
-            int randomCentrePick = Randomizer.generateRandomInt(0, openCentres.size()-1);
-            Centre randomCentre = openCentres.get(randomCentrePick);
-            if(!randomCentre.isFull() && monthlyAllowance.get(randomCentrePick)>0){
+        HashMap<Centre, Integer> centreMonthAllowance = new HashMap<>();
+        for (Centre centre : openCentres) {
+            centreMonthAllowance.putIfAbsent(centre, Randomizer.getCentreMonthlyAllowance());
+        }
+        while (centreMonthAllowance.size()>0 && waitingList.size()>0) {
+            Centre randomCentre = Randomizer.getRandomCentre(centreMonthAllowance.keySet());
+            if (!randomCentre.isFull() && centreMonthAllowance.get(randomCentre)>0) {
                 assert waitingList.peek() != null;
-                    randomCentre.addTrainee(waitingList.poll());
-                    monthlyAllowance.set(randomCentrePick, monthlyAllowance.get(randomCentrePick)-1);
-            }else{
-                fullCentres.add(randomCentre);
-                openCentres.remove(randomCentre);
+                randomCentre.addTrainee(waitingList.poll());
+                centreMonthAllowance.put(randomCentre,centreMonthAllowance.get(randomCentre)-1);
+            } else {
+                centreMonthAllowance.remove(randomCentre);
+                if (randomCentre.isFull()) {
+                    openCentres.remove(randomCentre);
+                    fullCentres.add(randomCentre);
+                }
             }
         }
+    }
+
+    public void gatherNewTrainees() {
+        waitingList.addAll(Trainee.generateTrainees(Randomizer.getNewTrainees()));
     }
 
 
