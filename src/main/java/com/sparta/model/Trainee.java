@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class Trainee {
-    private int traineeID;
+    private final int traineeID;
     private static int count=0;
-    private CourseType courseType;
+    private final CourseType courseType;
     private LocalDate startDate;
     private LocalDate graduationDate;
 

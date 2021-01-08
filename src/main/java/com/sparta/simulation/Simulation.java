@@ -34,6 +34,7 @@ public class Simulation {
             if(report != null){
                 outputReport(report, true); // will be null if SimulationMode = FAST_FORWARD
             }
+            System.err.println(TimeTracker.getCurrentDate().toString());
         }
         ReportPack finalReport = generateFinalReport(spartaGlobal); // will be null if SimulationMode = STEP_BY_STEP
         if(finalReport != null){
@@ -75,8 +76,8 @@ public class Simulation {
         return null;
     }
 
-    private static void checkCentresForOpening(Company spartaGlobal) {
-        //TODO("To be implemented")
+    private static void checkCentresForOpening(Company company) {
+        company.checkCentresForOpening();
     }
 
     private static void generateClients(Company company) {
@@ -106,7 +107,7 @@ public class Simulation {
     }
 
     private static void generateTrainees(Company company) {
-        //TODO("GENERATE TRAINEES");
+        company.gatherNewTrainees();
     }
 
     private static void initializeSimulation() {
