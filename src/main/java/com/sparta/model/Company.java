@@ -41,21 +41,28 @@ public class Company {
     public void assignTrainees() {
         HashMap<Centre, Integer> centreMonthAllowance = new HashMap<>();
         for (Centre centre : openCentres) {
-            centreMonthAllowance.putIfAbsent(centre, Randomizer.getCentreMonthlyAllowance());
+            centreMonthAllowance.putIfAbsent(centre, 20); //Randomizer.getCentreMonthlyAllowance()
         }
         while (centreMonthAllowance.size()>0 && waitingList.size()>0) {
-            Centre randomCentre = Randomizer.getRandomCentre(centreMonthAllowance.keySet());
-            if (!randomCentre.isFull() && centreMonthAllowance.get(randomCentre)>0) {
-                assert waitingList.peek() != null;
-                randomCentre.addTrainee(waitingList.poll());
-                centreMonthAllowance.put(randomCentre,centreMonthAllowance.get(randomCentre)-1);
-            } else {
-                centreMonthAllowance.remove(randomCentre);
-                if (randomCentre.isFull()) {
-                    openCentres.remove(randomCentre);
-                    fullCentres.add(randomCentre);
-                }
+            assignTrainees(centreMonthAllowance);
+        }
+    }
+
+    private void assignTrainees(HashMap<Centre, Integer> centreMonthAllowance) {
+        Centre randomCentre = Randomizer.getRandomCentre(centreMonthAllowance.keySet());
+        if (!randomCentre.isFull()) {
+            if(waitingList.peek()!=null) {
+                Trainee newTrainee = waitingList.poll();
+                newTrainee.startTraining();
+                randomCentre.addTrainee(newTrainee);
+                centreMonthAllowance.put(randomCentre, (centreMonthAllowance.get(randomCentre)-1));
             }
+        }
+        if(centreMonthAllowance.get(randomCentre)<=0) {
+            centreMonthAllowance.remove(randomCentre);
+        }
+        if(randomCentre.isFull()) {
+            markCentreAsFull(randomCentre);
         }
     }
 
@@ -66,10 +73,6 @@ public class Company {
 
     private ArrayList<Centre> centresAvailable() {
         return new ArrayList<>(openCentres);
-    }
-
-    private void addTraineeToCentre(Trainee trainee, Centre currentCentre) {
-        currentCentre.addTrainee(trainee);
     }
 
     public int getNumberOfFullCentres() {
@@ -131,7 +134,10 @@ public class Company {
                 centresToBeClosed.add(centre);
             }
         }
-        System.err.println("Centres to close ="+centresToBeClosed.size());
+        for(Centre centre: centresToBeClosed){
+            waitingList.addAll(centre.getTraineesList());
+        }
+        assignTrainees();
         closedCentres.addAll(centresToBeClosed);
         openCentres.removeAll(centresToBeClosed);
     } // will check every centre to see if it is within the grace period

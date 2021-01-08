@@ -64,6 +64,8 @@ public class ReportPack {
         add(getTotalTraineesInTraining(company));
         add(getTraineesBreakdown(company.getTraineesInTraining()));
         add(getTotalTraineesOnWaiting(company));
+        add(getTotalOnBench(company));
+        add(getTraineesBreakdown(company.getTraineesOnBench()));
         add(getTraineesBreakdown(company.getTraineesOnWaiting()));
         add(getTotalClients(company));
         add(getClientsBreakdown(company.getClients()));
@@ -176,6 +178,9 @@ public class ReportPack {
 
     public static String getTotalClients(Company company) {
         return "The total number of clients: " + company.getNumberOfClients() + "\n";
+    }
+    public static String getTotalOnBench(Company company){
+        return "The total number of trainees on bench: "+ company.getTraineesOnBench().size() +"\n";
     }
 
     public static String getClientsBreakdown(Collection<Client> clients) {

@@ -27,15 +27,14 @@ public class Simulation {
             assignTraineesToCentres(spartaGlobal);
             checkCentresForClosing(spartaGlobal);
             generateClients(spartaGlobal);
-            generateClients(spartaGlobal);
             fulfillRequirements(spartaGlobal);
             TimeTracker.nextMonth();
             ReportPack report = generateStepByStepReport(spartaGlobal);
             if(report != null){
                 outputReport(report, true); // will be null if SimulationMode = FAST_FORWARD
             }
-            System.err.println(TimeTracker.getCurrentDate().toString());
         }
+        printProgress(spartaGlobal);
         ReportPack finalReport = generateFinalReport(spartaGlobal); // will be null if SimulationMode = STEP_BY_STEP
         if(finalReport != null){
             outputReport(finalReport, false);
