@@ -1,6 +1,0 @@
-====================================================
-The Simulation ran for 4 months
-====================================================== COMPANY REPORT ==The total number of open centres: 3From which: 
-Bootcamp:1
-Training Hub:1
-Tech Centre:1The total number of full centres: 0The total number of closed centres: 0The total number of trainees in training: 0The total number of trainees on the waiting list is 0The total number of clients: 0
