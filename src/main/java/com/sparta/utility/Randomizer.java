@@ -1,11 +1,12 @@
 package com.sparta.utility;
 
 import com.sparta.configuration.Settings;
+import com.sparta.model.Centre;
 import com.sparta.model.CentreType;
 import com.sparta.model.CourseType;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Randomizer {
@@ -41,6 +42,15 @@ public class Randomizer {
 
     public static boolean getBoolean() {
         return ThreadLocalRandom.current().nextBoolean();
+    }
+
+    public static int getCentreMonthlyAllowance() {
+        return generateRandomInt(Settings.CENTER_ADMITTANCE_MIN.getValue(), Settings.CENTER_ADMITTANCE_MAX.getValue());
+    }
+
+    public static Centre getRandomCentre(Collection<Centre> keySet) {
+        ArrayList<Centre> centres = new ArrayList<>(keySet);
+        return centres.get(generateRandomInt(0, centres.size()-1));
     }
 
 }
