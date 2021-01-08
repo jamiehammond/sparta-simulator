@@ -21,6 +21,7 @@ public class Client {
         count++;
         clientRequirements = new LinkedList<>();
         this.courseType = Randomizer.getCourseType();
+        isClientHappy = true;
     }
   
     public void addHiredTrainee(Trainee trainee)  {
