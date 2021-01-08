@@ -40,7 +40,6 @@ public class CentreFactory {
         if (randomCentre != null) {
             if (availableCentreTypes.get(randomCentre) >= lifeTimeLimit.get(randomCentre) && lifeTimeLimit.get(randomCentre) != -1) {
                 availableCentreTypes.remove(randomCentre);
-                System.err.println("CentreType removed: "+ randomCentre.getCentreName());
                 return getRandomCentre();
             } else {
                 Centre newCentre = createCentre(randomCentre);

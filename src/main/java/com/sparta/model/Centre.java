@@ -67,6 +67,9 @@ public abstract class Centre {
 
     public boolean isOverGracePeriod(){
         complyToGracePeriod();
+        if(graceStartingDate == null){
+            return false;
+        }
         return TimeTracker.getCurrentDate().isAfter(graceStartingDate.plusMonths(gracePeriod));
     }
 
@@ -75,8 +78,12 @@ public abstract class Centre {
     }
 
     private void complyToGracePeriod() {
-        if (trainees.size() < Settings.CENTRE_GRACE_MIN_TRAINEES_IN_TRAINING.getValue()) {
-            this.graceStartingDate = TimeTracker.getCurrentDate();
+        if(graceStartingDate == null){
+            if(trainees.size()<Settings.CENTRE_GRACE_MIN_TRAINEES_IN_TRAINING.getValue()){
+                graceStartingDate = TimeTracker.getCurrentDate();
+            }else{
+                graceStartingDate = null;
+            }
         }
     }
 

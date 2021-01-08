@@ -7,7 +7,6 @@ import com.sparta.utility.TimeTracker;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedList;
 
 public class ClientRequirements {
@@ -37,9 +36,11 @@ public class ClientRequirements {
         return !TimeTracker.getCurrentDate().isAfter(startDate.plusMonths(Settings.CLIENT_REQUIREMENT_EXPIRY_TIME.getValue()));
     }
 
-    public ArrayList<Trainee> getHiredTrainees(){return hiredTrainees;}
-
-    public void addTrainee(Trainee trainee){hiredTrainees.add(trainee);}
+    public ArrayList<Trainee> getHiredTrainees(){
+        ArrayList<Trainee> trainees = new ArrayList<>(hiredTrainees);
+        hiredTrainees.clear();
+        return trainees;
+    }
 
     public LocalDate getStartDate() {
         return startDate;
@@ -53,9 +54,6 @@ public class ClientRequirements {
         this.courseType = courseType;
     }
 
-    public int getTraineesToHire() {
-        return traineesToHire;
-    }
 
     public boolean isCompleted() {
         return completed;
@@ -80,4 +78,7 @@ public class ClientRequirements {
         return currentlyHiredTrainees;
     }
 
+    public void checkIfComplete() {
+            completed = traineesToHire == hiredTrainees.size();
+    }
 }
