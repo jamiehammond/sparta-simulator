@@ -53,7 +53,7 @@ public class ReportPack {
      * @param company the company on which the report is built
      */
     private void populateList(Company company) {
-        add(getHeader(TimeTracker.getYearsDifference(), TimeTracker.getMonthsDifference()));
+        add(getHeader(TimeTracker.getYearsDifference(), TimeTracker.getMonthsDifference()+1));
         add(getCompanyHeader());
         add(getTotalOpenCentres(company));
         add(getCentreBreakdown(company.getOpenCentres()));
