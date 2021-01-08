@@ -6,6 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+
 class CompanyTest {
 
     Company company;
@@ -18,19 +22,19 @@ class CompanyTest {
     @Test
     void openCentresTest() {
         company.openCentre();
-        Assertions.assertEquals(1, company.getOpenCentres().size());
+        Assertions.assertEquals(1, company.getCentres().size());
     }
 
     @Test
     void getCentresTest() {
-        company.getOpenCentres().add(new Bootcamp());
-        Assertions.assertEquals(1, company.getOpenCentres().size());
+        company.getCentres().add(new Centre());
+        Assertions.assertEquals(1, company.getCentres().size());
     }
 
 
     @Test
     void getWaitingListTest() {
-        company.getOpenCentres().add(new TechCentre());
+        company.getCentres().add(new Centre());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
@@ -40,9 +44,9 @@ class CompanyTest {
 
     @Test
     void doesAssignTraineesAddTraineesFromWaitingList() {
-        company.getOpenCentres().add(new TechCentre());
-        company.getOpenCentres().add(new TechCentre());
-        company.getOpenCentres().add(new TechCentre());
+        company.getCentres().add(new Centre());
+        company.getCentres().add(new Centre());
+        company.getCentres().add(new Centre());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
@@ -52,14 +56,14 @@ class CompanyTest {
 
     @Test
     void doesAssignTraineesStopAddingTraineesWhenCentresAreFull() {
-        Centre centre = new TechCentre();
+        Centre centre = new Centre();
 
         int count = 0;
         while (!centre.isFull()) {
             centre.addTrainee(new Trainee());
             count++; // for debugging
         }
-        company.getOpenCentres().add(centre);
+        company.getCentres().add(centre);
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
         company.getWaitingList().add(new Trainee());
